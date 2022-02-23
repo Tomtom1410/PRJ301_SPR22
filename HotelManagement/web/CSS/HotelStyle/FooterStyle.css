@@ -1,0 +1,11 @@
+.footer {
+    border-top: 2px yellow solid;
+    color: white;
+    background-color: #0b0a0a;
+    margin: 0;
+    width: 100%;
+    height: 25rem;
+    text-align: left;
+    font-size: 3rem;
+    padding: 3% 0%;
+}

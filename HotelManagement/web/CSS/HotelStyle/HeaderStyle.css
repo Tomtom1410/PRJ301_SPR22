@@ -1,0 +1,21 @@
+header{
+    font-family: 'Glyphicons Halflings';
+    font-size: 20px;
+}
+
+header nav div{
+    display: flex;
+}
+
+header a{
+    width: 16rem;
+    text-align: center;
+}
+header div:last-child button{
+    width: 9em;
+    height: 2em;
+    background-color: red;
+    color: white;
+    border: none;
+    margin: 0.5rem 0 0 64rem;
+}

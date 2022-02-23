@@ -1,0 +1,163 @@
+.right {
+    height: auto;
+}
+
+.right .title {
+    margin: 0 0 0 -2%;
+    padding: 0 0 4% 3%;
+    height: 8rem;
+    border-bottom: 1px solid grey;
+}
+
+.right .title div:nth-child(2) {
+    font-size: 20px;
+}
+
+.right .row .Search input {
+    /* border-radius: none; */
+    width: 20rem;
+    height: 4rem;
+    margin: 5% 0;
+    font-size: 16px;
+
+}
+
+.right .row .Search button{
+    width: 5em;
+    height: 2em;
+    background: rgba(51, 122, 183, 1);
+    border: none;
+    color: white;
+}
+
+.right .row .Search button:hover{
+    background-color: blue;
+}
+
+.Banner form{
+    display: flex;
+    border-bottom: 1px solid grey;
+    margin: 0 0 0 -0.1%;
+    padding: 0;
+    height: 4em;
+    width: 99%;
+}
+
+.Banner span{
+    margin: 1%;
+    color: red;
+    font-weight: bolder;
+}
+.Banner select{
+    margin: 1% 2%;
+}
+
+.Banner button{
+    width: 6em;
+    height: 2em;
+    margin: 1%;
+    background-color: #e7a630;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.Banner button:hover{
+    background-color: #fb650e;
+}
+
+.content table {
+    /* width: 100%; */
+    margin: 3% 0;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.content td {
+    border: 1px solid black;
+    text-align: center;
+    height: 6rem;
+    width: 10%;
+}
+
+.content tr:first-child td {
+    color: blue;
+    font-weight: bold;
+}
+
+
+.pageLine a
+{
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    background-color: green;
+    color: white;
+    font-weight: bolder;
+    margin: 0 3px;
+    padding: 5px;
+}
+
+.pageLine{
+    margin: 1%;
+}
+.pageLine span {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    background-color: #e6dfdf;
+    color: red;
+    font-weight: bolder;
+    font-weight: bold;
+    margin: 0 3px;
+    padding: 5px;
+}
+
+.detail {
+    border: 1px solid grey;
+    margin: 2% 0;
+    padding: 1%;
+    box-shadow: 0 0 3px 1px #766f6f;
+    border-radius: 2%;
+}
+
+.detail td{
+    color: #8d0b38;
+    font-weight: bolder;
+    width: 100%;
+    padding: 2% 0;
+}
+
+.detail .up input, select {
+    width: 18em;
+    height: 2em;
+    /*margin: 6% 0;*/
+}
+
+.detail .control{
+    display: flex;
+}
+
+.detail button {
+    width: 5em;
+    margin: 4% 15%;
+    color: white;
+    border: none;
+    padding: 1%;
+}
+
+.detail form .save {
+    background-color: red;
+}
+
+.detail form .save:hover {
+    background-color: #770a0a;
+}
+
+.detail .del{
+    background-color: green;
+}
+
+.detail .del:hover{
+    background-color: #0f450f;
+}

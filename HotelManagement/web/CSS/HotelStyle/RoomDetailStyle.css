@@ -1,0 +1,94 @@
+.container {
+    width: 100%;
+    padding: 0;
+}
+
+.Banner {
+    background-image: url('https://cdn1.ivivu.com/iVivu/2019/01/25/14/khach-san-the-luxe-da-lat-8-800x450.jpg');
+    height: 25rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 2%;
+    margin: -2% 0 3% 0;
+    width: 100%;
+}
+
+.Banner p {
+    font-size: 7rem;
+    margin: 3% 0;
+}
+
+.slide {
+    margin: 0 5% 6% 8%;
+}
+
+.slide img {
+    width: 1519px !important;
+    height: 400px !important;
+}
+
+.content {
+    text-align: justify;
+    margin: 3% 8%;
+    color: rgb(83 84 84);
+}
+
+.content h1 {
+    color: black;
+}
+
+.content .Price {
+    color: #f12319;
+    font-weight: bold;
+}
+
+.booking {
+    border: 1px solid black;
+    padding: 2%;
+}
+
+.booking tr:first-child td:first-child {
+    width: 23em;
+    height: 3em;
+    text-align: center;
+    background-color: #f16919;
+    color: white;
+    font-weight: bold;
+}
+
+.booking tr td .in {
+    width: 23em;
+    height: 3em;
+    text-align: left;
+    margin: 5% 0;
+}
+
+.booking button {
+    width: 12em;
+    height: 3em;
+    text-align: center;
+    background-color: #f12319;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin: 0 25%;
+}
+
+.booking button:hover {
+    background-color: #6e1814;
+}
+
+@media only screen and (max-width: 800px) {
+    .booking {
+        border: 1px solid black;
+        width: 73%;
+        padding: 4% 13%;
+        margin: 0 auto;
+    }
+    .slide {
+        margin: 1% auto;
+    }
+}

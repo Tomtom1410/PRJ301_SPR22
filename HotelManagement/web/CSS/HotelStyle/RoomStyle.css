@@ -1,0 +1,68 @@
+.container {
+    width: 100%;
+    padding: 0;
+}
+
+.Banner {
+    background-image: url('https://cdn1.ivivu.com/iVivu/2019/01/25/14/khach-san-the-luxe-da-lat-8-800x450.jpg');
+    height: 25rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    text-align: center;
+    font-size: 12rem;
+    padding: 2%;
+    margin: -2%;
+    width: 102%;
+}
+
+.Room {
+    margin: 6% 13%;
+    text-align: left;
+}
+
+.Room .detail {
+    box-shadow: 0 0 4px 3px #0000003d;
+    width: 322px;
+    padding: 0;
+    margin: 2%;
+}
+
+.Room .detail img {
+    width: 23em;
+    height: 18em;
+}
+
+.Room .detail div:first-child {
+    width: 23em;
+}
+
+.Room .detail div:last-child {
+    width: 23em;
+    padding: 4% 0;
+}
+
+.Room .detail div:last-child h3 {
+    margin: 6% 5%;
+}
+
+.Room .detail div:last-child div {
+    display: flex;
+    margin: 0 5%;
+    font-size: 1.3em;
+}
+
+.Room .detail div:last-child div p {
+    color: gray;
+    margin-right: 20%;
+}
+
+.Room .detail div:last-child div a {
+    padding: 1%;
+    background-color: orangered;
+    width: 5em;
+    height: 2em;
+    color: white;
+    text-align: center;
+}

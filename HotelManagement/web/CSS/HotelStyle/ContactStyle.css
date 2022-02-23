@@ -1,0 +1,73 @@
+.container {
+    width: 100%;
+    padding: 0;
+    background-color: #202020;
+    color: white;
+}
+
+.Banner {
+    background-image: url('https://cafefcdn.com/2020/6/19/8723924822522783915425701998776278345902708n-15925535390091327956944.jpg');
+    height: 25rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    color: white;
+    text-align: center;
+    padding: 2%;
+    margin: -2% 0 3% 0;
+    width: 100%;
+}
+
+.Banner p {
+    font-size: 7em;
+    margin: 3% 0;
+}
+
+.Contact{
+    margin-bottom: 5%;
+}
+
+form {
+    margin: 0 27%;
+}
+
+input {
+    width: 42rem;
+    height: 5rem;
+    margin: 3% 0;
+    color: #000;
+    border: none;
+}
+
+input:hover {
+    box-shadow: 0 0 2px 2px #e9ac3a;
+}
+
+textarea {
+    color: #000;
+}
+
+textarea:hover {
+    box-shadow: 0 0 2px 2px #e9ac3a;
+}
+
+tr:last-child input {
+    background-color: #f94a0a;
+    font-size: 25px;
+    font-family: 'Glyphicons Halflings';
+    text-align: center;
+    padding: 0 0 1% 0;
+    border: none;
+    color: white;
+}
+
+tr:last-child input:hover {
+    background-color: #76290d;
+    box-shadow: none;
+}
+
+.Contact div:last-child {
+    font-size: 19px;
+    line-height: 2em;
+    margin: 0 0 0 -10%;
+}

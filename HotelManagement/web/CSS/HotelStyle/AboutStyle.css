@@ -1,0 +1,84 @@
+.container {
+    width: 100%;
+    padding: 0;
+}
+
+.Banner {
+    background-image: url('https://cafefcdn.com/2020/6/19/8723924822522783915425701998776278345902708n-15925535390091327956944.jpg');
+    height: 25rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    color: white;
+    text-align: center;
+    padding: 2%;
+    margin: -2% 0 3% 0;
+    width: 100%;
+}
+
+.Banner p {
+    font-size: 7em;
+    margin: 3% 0;
+}
+
+.content {
+    width: 82%;
+    margin: 0 auto 3% auto;
+    font-family: 'Glyphicons Halflings';
+    font-size: 1.3em;
+}
+
+.content h3 {
+    text-align: center;
+    color: #cf7300;
+    font-weight: bold;
+}
+
+.content span {
+    color: #625c5c;
+    font-family: emoji;
+    font-style: italic;
+    text-align: justify;
+}
+
+.pic {
+    text-align: center;
+    margin: 1% 0;
+}
+
+.pic img {
+    width: 63%;
+    height: 79rem;
+}
+
+.Convinient {
+    width: 85%;
+    margin: 5% auto;
+    font-size: 1.5em;
+}
+
+.Convinient .header_1 {
+    color: #cf7300;
+    margin: 9% 0 5% 0;
+    text-align: center;
+}
+
+.Convinient .header_1 h3 {
+    font-family: 'Glyphicons Halflings';
+    border-bottom: 2px solid;
+    width: 34rem;
+    padding: 1% 0;
+    margin: 0 auto;
+}
+
+.Convinient li {
+    list-style: none;
+    font-size: 19px;
+    line-height: 49px;
+    margin: 0 20%;
+    color: #625c5c;
+}
+
+.Convinient li span {
+    color: orange;
+}

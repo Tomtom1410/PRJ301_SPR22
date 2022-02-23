@@ -1,0 +1,142 @@
+.container {
+    background-color: #000;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.container .slide{
+    margin: 0%;
+}
+.descript_slider{
+    color: white;
+    font-size: 60px;
+    position: absolute;
+    margin: -7% 2%;
+
+}
+h1{
+    font-size: 49px;
+    font-weight: bold;
+    color: #cf7300;
+}
+
+h3{
+    font-family: 'Glyphicons Halflings';
+    color: #cf7300;
+}
+
+p, a{
+    font-family: emoji;
+}
+
+ol{
+    margin-bottom: 3%;
+}
+form{
+    position: relative;
+    background-color: #2d2d2d54;
+    height: 137px;
+    padding: 2% 5%;
+    margin: -6% 0;
+}
+.booking {
+    width: 84%;
+    margin: 0 auto;
+    font-size: 17px;
+}
+
+.booking td .infor{
+    width: 12em;
+    height: 2.5em;
+    margin: 3% 0;
+    text-align: center;
+}
+
+.booking tr:first-child{
+    color: white;
+}
+
+.booking tr:nth-child(2) td{
+    margin: 0 1%;
+}
+
+.bottom-left{
+    background: #eb3333;
+    color: white;
+    border: none;
+}
+.container .About {
+    text-align: center;
+    margin: 3% 0;
+    background-color: #00000030;
+    padding: 12% 0;
+}
+
+.descript{
+    width:60%;
+    margin: 2% auto;
+    font-size: 20px;
+    color: #9e9e9e;
+    position: relative;
+}
+
+.room{
+    background-image: url('../../image/backgroundRoomjpg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: bottom;
+
+}
+
+.room .content{
+    margin-top: 6%;
+    background-color: #0000006b;
+    padding: 3%;
+}
+
+.descript2{
+    width:60%;
+    font-size: 15px;
+    position: relative;
+        color: antiquewhite;
+}
+
+.room .line1 img{
+    margin: 1% 15%;
+}
+
+.room .line2 img{
+    width: 34em;
+    height: 20em;
+}
+
+.service{
+    text-align: center;
+    margin: 6%;
+}
+.row {
+    margin: 6% 0;
+}
+
+.row .box div:last-child{
+    border-bottom: solid 4px rgb(159 150 150 / 16%);
+    border-left: solid 4px rgb(159 150 150 / 16%);
+    border-right: solid 4px rgb(159 150 150 / 16%);
+    width: 300px;
+    height: 200px;
+    margin-top: -7%;
+    padding: 10%;
+    text-align: left;
+    font-size: 20px;
+}
+
+.row .box img{
+    width: 300px;
+    height: 250px;
+}
+
+.row h3 {
+    color: yellow;
+    font-family: serif;
+}
