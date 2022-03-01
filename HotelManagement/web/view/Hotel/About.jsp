@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hotel Del Luna</title>
+        <title>Hotel Your House</title>
         <script src="mycode.js"></script>
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -19,15 +19,15 @@
     <body>
 
         <div class="container">
-            <!--Nội dung Menu-->
+            <!--Ná»i dung Menu-->
             <jsp:include page="Header.jsp"></jsp:include>
 
                 <div class="Banner">
-                    <p>About Hotel Del Luna</p>
+                    <p>About Your House</p>
                 </div>
                 <!-- content -->
                 <div class="row content">
-                    <h3>HISTORY ABOUT DEL LUNA</h3>
+                    <h3>HISTORY ABOUT YOUR HOUSE</h3>
                     <span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
                         sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
                         Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
@@ -43,8 +43,8 @@
 
                 <div class="Convinient">
                     <div class="header_1">
-                        <h3>WELCOME TO DEL LUNA</h3>
-                        <h1>Highlights About Del Luna</h1>
+                        <h3>WELCOME TO YOUR HOUSE</h3>
+                        <h1>Highlights About Your House</h1>
                     </div>
                     <div class="row ">
                         <div class="col-md-4">

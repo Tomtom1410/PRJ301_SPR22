@@ -1,26 +1,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hotel Del Luna</title>
-        <!--<script src="mycode.js"></script>-->
-        <!-- Bootstrap -->
-        <link href="${pageContext.request.contextPath}/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <!--CSS-->
-        <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/CSS/HotelStyle/HomeStyle.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/CSS/HotelStyle/FooterStyle.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/CSS/HotelStyle/HeaderStyle.css" rel="stylesheet" type="text/css"/>
-
-    </head>
-
-    <body>
+<jsp:include page="LinkCSS.jsp"></jsp:include>
 
         <div class="container">
             <jsp:include page="Header.jsp"></jsp:include>
@@ -99,7 +79,7 @@
                 </form>
             </div>
             <div class="About">
-                <h3>Del Luna Hotel</h3>
+                <h3>Your House</h3>
                 <h1>WELCOME TO US</h1>
                 <p class="descript">One of the top factors to make your business and travel trips light and comfortable is choosing a 
                     high-class hotel to stay during your business trip. Luxury hotels with many high-class services,
@@ -109,7 +89,7 @@
             <div class="row room">
                 <div class="col-md-5 content">
                     <h1>BEAUTIFUL, COOL ROOMS</h1>
-                    <p class="descript2">Come to Del Luna Hotel, you will experience translation
+                    <p class="descript2">Come to Your House, you will experience translation
                         High-class spa services, modern fitness center and recreational activities on the sea.
                     </p>
                     <a style="color: #c9ec4d; font-weight: bold; font-size: 23px; text-decoration-line: revert;" href="Room">Details</a>
@@ -134,7 +114,7 @@
 
             <div class="service">
                 <div>
-                    <h3>Del Luna Hotel</h3>
+                    <h3>Your House</h3>
                     <h1>HOT SERVICES</h1>
                 </div>
 
