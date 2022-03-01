@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hotel Del Luna</title>
+        <title>Hotel Your House</title>
         <!--<script src="mycode.js"></script>-->
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -69,11 +69,11 @@
 
                     <div class="col-md-4">
                         <h1>Contact Information </h1>
-                        <h3>DEL LUNA HOTEL</h3>
+                        <h3>YOUR HOUSE HOTEL</h3>
                         <p><span class="glyphicon glyphicon-earphone"></span> Phone : 0981235670</p>
                         <p> <span class="glyphicon glyphicon-equalizer"></span> Address : 50-82 Bui Vien Street, <br> Pham Ngu Lao Ward, District 1, Ho Chi Minh City Copyright. <br> All rights Reserved.
                         </p>
-                        <p><span class="glyphicon glyphicon-envelope"></span> Email: Delluna@gamil.com</p>
+                        <p><span class="glyphicon glyphicon-envelope"></span> Email: Yourhouse@gamil.com</p>
                     </div>
                 </div>
             <jsp:include page="Footer.jsp"></jsp:include>

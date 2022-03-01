@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hotel Del Luna</title>
+        <title>Hotel Your House</title>
         <!-- Bootstrap && CSS-->
         <link href="${pageContext.request.contextPath}/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/CSS/HotelStyle/RoomDetailStyle.css" rel="stylesheet" type="text/css" />

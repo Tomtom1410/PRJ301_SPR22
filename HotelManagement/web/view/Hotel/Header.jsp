@@ -6,17 +6,17 @@
                 <ul class="nav navbar-nav">
 
                     <li class="${tag eq "home"?"active":""}">
-                        <a href="Home"> <span class="glyphicon glyphicon-home"></span>Home</a>
+                        <a href="home"> <span class="glyphicon glyphicon-home"></span>Home</a>
                     </li>
 
-                    <li class="${tag eq "about"?"active":""}"><a href="About">About</a></li>
-                    <li class="${tag eq "room"?"active":""}"><a href="Room">Room Type</a></li>
-                    <li class="${tag eq "contact"?"active":""}"><a href="Contact"><span class="glyphicon glyphicon-envelope"></span>Contact</a> </li>
+                    <li class="${tag eq "about"?"active":""}"><a href="about">About</a></li>
+                    <li class="${tag eq "room"?"active":""}"><a href="room">Room Type</a></li>
+                    <li class="${tag eq "contact"?"active":""}"><a href="contact"><span class="glyphicon glyphicon-envelope"></span>Contact</a> </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
             <div>
-                <a href="Booking"><button class="button-left">Booking</button></a>
+                <a href="booking"><button class="button-left">Booking</button></a>
             </div>
 
         </div>

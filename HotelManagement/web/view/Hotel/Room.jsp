@@ -8,7 +8,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hotel Del Luna</title>
+        <title>Hotel Your House</title>
         <script src="mycode.js"></script>
         <!-- Bootstrap && CSS-->
         <link href="${pageContext.request.contextPath}/Bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -35,7 +35,7 @@
                             <h3>${d.deptName}</h3>
                             <div>
                                 <p>Price: ${d.price}$/day</p>
-                                <a href="Room_detail?deptName=${d.deptName}">Detail</a>
+                                <a href="roomdetail?deptName=${d.deptName}">Detail</a>
                             </div>
                         </div>
                     </div>
