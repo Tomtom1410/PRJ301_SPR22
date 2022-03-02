@@ -124,8 +124,8 @@
                                     <tr>
                                         <td>Choose room: 
                                             <c:forEach items="${roomByName}" var="r">
-                                                <input name="deptID" type="checkbox" 
-                                                       value="${r.deptID}"> ${r.deptID}
+                                                    <input name="deptID" type="checkbox" 
+                                                           value="${r.deptID}"> ${r.deptID}
                                             </c:forEach>
                                         </td>
                                     </tr>

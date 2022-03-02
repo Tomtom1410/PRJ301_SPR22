@@ -5,34 +5,24 @@
  */
 package Management;
 
+import dal.BookingDBContext;
+import dal.DepartmentDBContext;
+import dal.OrderWaitDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.BookingDetail;
+import model.Department;
 
 /**
  *
  * @author conmu
  */
-public class HomeManagementController extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String tag = "home";
-        request.setAttribute("tagMenu", tag);
-        request.getRequestDispatcher("../view/AdminDirector/Room.jsp").forward(request, response);
-    }
+public class OrderdetailsController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -46,7 +36,21 @@ public class HomeManagementController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String orderID = request.getParameter("orderId");
+        String rented = request.getParameter("rented");
+        String deptName = request.getParameter("deptName");
+//        OrderWaitDBContext odb = new OrderWaitDBContext();
+        DepartmentDBContext ddb = new DepartmentDBContext();
+        BookingDBContext bdb = new BookingDBContext();
+        BookingDetail booking = bdb.getBookingDetail(Integer.parseInt(orderID));
+        request.setAttribute("booking", booking);
+        ArrayList<Department> roomModel = ddb.getRoomModel();
+        request.setAttribute("roomType", roomModel);
+        ArrayList<Department> rooms = ddb.getRoomByName(deptName);
+        request.setAttribute("rooms", rooms);
+        request.setAttribute("rented", rented);
+        request.setAttribute("deptName", deptName);
+        request.getRequestDispatcher("../view/AdminDirector/OrderDetails.jsp").forward(request, response);
     }
 
     /**
@@ -60,7 +64,6 @@ public class HomeManagementController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

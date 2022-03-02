@@ -255,66 +255,66 @@ public class BookingManagementController extends HttpServlet {
         doGetBookingHistoryDetails(request, response);
     }
 
-    private void processSearch(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String value = request.getParameter("value");
-        String keyName = request.getParameter("keyName");
-
-        value = value.replaceAll("\\s+", " ").trim();
-        if (keyName.equals("orderWait")) {
-            OrderWaitDBContext odb = new OrderWaitDBContext();
-            ArrayList<OrderWait> searchOrder = odb.searchOrder(value);
-            if (searchOrder.isEmpty()) {
-                response.getWriter().print("Not found customer with name contains " + value);
-            } else {
-                request.setAttribute("orders", searchOrder);
-                String tag = "order";
-                request.setAttribute("tagMenu", tag);
-                request.setAttribute("value", value);
-                String title = "wait";
-                request.setAttribute("title", title);
-                request.getRequestDispatcher("../../view/Management/OrderWait.jsp").forward(request, response);
-            }
-        } else if (keyName.equals("haveRoom")) {
-            BookingDBContext bdb = new BookingDBContext();
-            ArrayList<BookingDetail> searchBookingDetails = bdb.searchBookingDetails(value, "0");
-            if (searchBookingDetails.isEmpty()) {
-                response.getWriter().print("Not found customer with name contains " + value);
-            } else {
-                String tag = "order";
-                request.setAttribute("tagMenu", tag);
-                String title = "hadRoom";
-                request.setAttribute("title", title);
-                request.setAttribute("allBookingNotCancel", searchBookingDetails);
-                request.setAttribute("value", value);
-                request.getRequestDispatcher("../../view/Management/OrderHaveRoom.jsp").forward(request, response);
-
-            }
-        } else if (keyName.equals("booking")) {
-            BookingDBContext bdb = new BookingDBContext();
-            ArrayList<BookingDetail> searchBookingDetails = bdb.searchBookingDetails(value, "all");
-            if (searchBookingDetails.isEmpty()) {
-                response.getWriter().print("Not found customer with name contains " + value);
-            } else {
-                String tag = "order";
-                request.setAttribute("tagMenu", tag);
-                String title = "hadRoom";
-                request.setAttribute("title", title);
-                request.setAttribute("bookingHistory", searchBookingDetails);
-                request.setAttribute("value", value);
-                request.getRequestDispatcher("../../view/Management/BookingHistory.jsp").forward(request, response);
-            }
-        } else {
-            FeedBackDBContext fdb = new FeedBackDBContext();
-            ArrayList<Feedback> searchFeedbacks = fdb.searchFeedbacks(value);
-            String tagMenu = "feedback";
-            request.setAttribute("tagMenu", tagMenu);
-            request.setAttribute("feedbacks", searchFeedbacks);
-            request.setAttribute("value", value);
-
-            request.getRequestDispatcher("../../view/Management/Feedback.jsp").forward(request, response);
-        }
-    }
+//    private void processSearch(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        String value = request.getParameter("value");
+//        String keyName = request.getParameter("keyName");
+//
+//        value = value.replaceAll("\\s+", " ").trim();
+//        if (keyName.equals("orderWait")) {
+//            OrderWaitDBContext odb = new OrderWaitDBContext();
+//            ArrayList<OrderWait> searchOrder = odb.searchOrder(value);
+//            if (searchOrder.isEmpty()) {
+//                response.getWriter().print("Not found customer with name contains " + value);
+//            } else {
+//                request.setAttribute("orders", searchOrder);
+//                String tag = "order";
+//                request.setAttribute("tagMenu", tag);
+//                request.setAttribute("value", value);
+//                String title = "wait";
+//                request.setAttribute("title", title);
+//                request.getRequestDispatcher("../../view/Management/OrderWait.jsp").forward(request, response);
+//            }
+//        } else if (keyName.equals("haveRoom")) {
+//            BookingDBContext bdb = new BookingDBContext();
+//            ArrayList<BookingDetail> searchBookingDetails = bdb.searchBookingDetails(value, "0");
+//            if (searchBookingDetails.isEmpty()) {
+//                response.getWriter().print("Not found customer with name contains " + value);
+//            } else {
+//                String tag = "order";
+//                request.setAttribute("tagMenu", tag);
+//                String title = "hadRoom";
+//                request.setAttribute("title", title);
+//                request.setAttribute("allBookingNotCancel", searchBookingDetails);
+//                request.setAttribute("value", value);
+//                request.getRequestDispatcher("../../view/Management/OrderHaveRoom.jsp").forward(request, response);
+//
+//            }
+//        } else if (keyName.equals("booking")) {
+//            BookingDBContext bdb = new BookingDBContext();
+//            ArrayList<BookingDetail> searchBookingDetails = bdb.searchBookingDetails(value, "all");
+//            if (searchBookingDetails.isEmpty()) {
+//                response.getWriter().print("Not found customer with name contains " + value);
+//            } else {
+//                String tag = "order";
+//                request.setAttribute("tagMenu", tag);
+//                String title = "hadRoom";
+//                request.setAttribute("title", title);
+//                request.setAttribute("bookingHistory", searchBookingDetails);
+//                request.setAttribute("value", value);
+//                request.getRequestDispatcher("../../view/Management/BookingHistory.jsp").forward(request, response);
+//            }
+//        } else {
+//            FeedBackDBContext fdb = new FeedBackDBContext();
+//            ArrayList<Feedback> searchFeedbacks = fdb.searchFeedbacks(value);
+//            String tagMenu = "feedback";
+//            request.setAttribute("tagMenu", tagMenu);
+//            request.setAttribute("feedbacks", searchFeedbacks);
+//            request.setAttribute("value", value);
+//
+//            request.getRequestDispatcher("../../view/Management/Feedback.jsp").forward(request, response);
+//        }
+//    }
 
     /**
      * Returns a short description of the servlet.

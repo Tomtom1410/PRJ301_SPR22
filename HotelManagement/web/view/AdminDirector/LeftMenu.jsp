@@ -14,35 +14,34 @@
         </a>
     </nav>
 </header>
-    <!-- Left side column. contains the logo and sidebar --> 
-    <aside class="left-side sidebar-offcanvas">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-            <ul class="sidebar-menu">
-                <li>
-                    <a href="room">
-                        <i class="fa fa-bed"></i> <span>Rooms</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-gavel"></i> <span>Order Details</span>
-                    </a>
-                </li>
+<!-- Left side column. contains the logo and sidebar --> 
+<aside class="left-side sidebar-offcanvas">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="${pageContext.request.contextPath}/management/room">
+                    <i class="fa fa-bed"></i> <span>Rooms</span>
+                </a>
+            </li>
+            <li>
+                <a href="orders"> <i class="fa fa-notes-medical"></i>Order Details
+                </a>
+            </li>
 
-                <li>
-                    <a href="#">
-                        <i class="fa fa-globe"></i> <span>Basic Elements</span>
-                    </a>
-                </li>
+            <li>
+                <a href="">
+                    <i class="fa fa-globe"></i> <span>Basic Elements</span>
+                </a>
+            </li>
 
-                <li class="active">
-                    <a href="#">
-                        <i class="fa fa-glass"></i> <span>Simple tables</span>
-                    </a>
-                </li>
+            <li class="active">
+                <a href="#">
+                    <i class="fa fa-glass"></i> <span>Simple tables</span>
+                </a>
+            </li>
 
-            </ul>
-        </section>
-        <!-- /.sidebar -->
-    </aside>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

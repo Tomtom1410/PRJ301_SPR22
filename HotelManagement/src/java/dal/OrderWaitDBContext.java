@@ -84,7 +84,7 @@ public class OrderWaitDBContext extends DBContext {
         }
     }
 
-    public ArrayList<OrderWait> getInformationOrderWait(int pageIndex, int pageSize, boolean rented) {
+    public ArrayList<OrderWait> getInformationOrderWait(int pageIndex, int pageSize, String rented, String key) {
         ArrayList<OrderWait> orderWaits = new ArrayList<>();
         try {
             String sql = "SELECT * \n"
@@ -92,14 +92,19 @@ public class OrderWaitDBContext extends DBContext {
                     + "			Customer.CustomerID, CustomerName, Phone, Email, [Address]	\n"
                     + "			,orderWaitID, deptName, CheckIn, CheckOut, noOfRooms,Rented\n"
                     + "		FROM OrderWait \n"
-                    + "		inner join Customer on Customer.CustomerID = OrderWait.CustomerID)  as O \n"
-                    + "WHERE  rownum >= (? - 1)*? + 1 AND rownum <= ? * ? AND Rented = ? ";
+                    + "		inner join Customer on Customer.CustomerID = OrderWait.CustomerID\n"
+                    + "         where Rented = " + rented + "\n";
+            if (key != null) {
+                sql += "        and CustomerName like '%" + key + "%' or phone like '%" + key + "%'\n";
+            }
+            sql += ")  as O \n"
+                    + "WHERE  rownum >= (? - 1)*? + 1 AND rownum <= ? * ?";
+//            System.out.println(sql);
             stm = connection.prepareStatement(sql);
             stm.setInt(1, pageIndex);
             stm.setInt(2, pageSize);
             stm.setInt(3, pageIndex);
             stm.setInt(4, pageSize);
-            stm.setBoolean(5, rented);
             rs = stm.executeQuery();
             while (rs.next()) {
                 OrderWait o = new OrderWait();
@@ -188,22 +193,61 @@ public class OrderWaitDBContext extends DBContext {
         }
     }
 
-    public int totalRow(boolean rented) {
+    public int totalRow(String rented, String key) {
         try {
-            String sql = "select COUNT(*) as totalRow \n"
-                    + "from OrderWait\n"
-                    + "where Rented = ?";
+            String sql = "SELECT Count(*)"
+                    + "		FROM OrderWait \n"
+                    + "		inner join Customer on Customer.CustomerID = OrderWait.CustomerID\n"
+                    + "         where Rented = ?";
+            if (key != null) {
+                sql += "        and CustomerName like '%" + key + "%' or phone like '%" + key + "%'\n";
+            }
             stm = connection.prepareStatement(sql);
-            stm.setBoolean(1, rented);
+            stm.setString(1, rented);
             rs = stm.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt("totalRow");
+                return rs.getInt(1);
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderWaitDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
+    }
+
+    public OrderWait getOrderById(int orderId) {
+        try {
+            String sql = "SELECT Customer.CustomerID, CustomerName, Phone, Email, [Address]	\n"
+                    + "       , deptName, CheckIn, CheckOut, noOfRooms, Rented, orderWaitID\n"
+                    + "FROM OrderWait \n"
+                    + "inner join Customer on Customer.CustomerID = OrderWait.CustomerID\n"
+                    + "where orderWaitID = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, orderId);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                Customer c = new Customer();
+                c.setCustomerID(rs.getInt(1));
+                c.setCustomerName(rs.getString(2));
+                c.setPhone(rs.getString(3));
+                c.setEmail(rs.getString(4));
+                c.setAddress(rs.getString(5));
+                Department d = new  Department();
+                d.setDeptName(rs.getString(6));
+                OrderWait o = new OrderWait();
+                o.setCustomer(c);
+                o.setDepartment(d);
+                o.setCheckIn(rs.getDate(7));
+                o.setCheckOut(rs.getDate(8));
+                o.setNoOfRoom(rs.getInt(9));
+                o.setRented(rs.getBoolean(10));
+                o.setOrderWaitID(orderId);
+                return o;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderWaitDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public void deleteOrder(String orderID) {
@@ -218,49 +262,11 @@ public class OrderWaitDBContext extends DBContext {
         }
     }
 
-    public ArrayList<OrderWait> searchOrder(String value) {
-        ArrayList<OrderWait> orderWaits = new ArrayList<>();
-        try {
-            String sql = "select orderWaitID, Customer.CustomerID, CustomerName, Phone, [Address], Email,\n"
-                    + "	noOfRooms, CheckIn, CheckOut, Rented, deptName\n"
-                    + "from OrderWait\n"
-                    + "inner join Customer on Customer.CustomerID = OrderWait.CustomerID\n"
-                    + "where CustomerName like ? and Rented = 0";
-            stm = connection.prepareStatement(sql);
-            stm.setString(1, "%" + value + "%");
-            rs = stm.executeQuery();
-
-            while (rs.next()) {
-                OrderWait o = new OrderWait();
-                Customer c = new Customer();
-                c.setCustomerID(rs.getInt("CustomerID"));
-                c.setCustomerName(rs.getString("CustomerName"));
-                c.setEmail(rs.getString("Email"));
-                c.setPhone(rs.getString("Phone"));
-                c.setAddress(rs.getString("Address"));
-                o.setCustomer(c);
-
-                Department d = new Department();
-                d.setDeptName(rs.getString("deptName"));
-                o.setDepartment(d);
-                o.setNoOfRoom(rs.getInt("noOfRooms"));
-                o.setCheckIn(rs.getDate("CheckIn"));
-                o.setCheckOut(rs.getDate("CheckOut"));
-                o.setOrderWaitID(rs.getInt("orderWaitID"));
-                o.setRented(rs.getBoolean("Rented"));
-                orderWaits.add(o);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderWaitDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return orderWaits;
-    }
-
-//    public static void main(String[] args) {
-//        OrderWaitDBContext odb = new OrderWaitDBContext();
-//        for (OrderWait orderWait : odb.getInformationOrderWait(1, 10, true)) {
-//            System.out.println(orderWait.getOrderWaitID());
+    public static void main(String[] args) {
+        OrderWaitDBContext odb = new OrderWaitDBContext();
+//        for (OrderWait orderWait : odb.getInformationOrderWait(1, 10, "0", "096")) {
+//            System.out.println(orderWait.getCustomer().getCustomerName());
 //        }
-//    }
+          System.out.println(odb.getOrderById(1).getCustomer().getCustomerName());
+    }
 }

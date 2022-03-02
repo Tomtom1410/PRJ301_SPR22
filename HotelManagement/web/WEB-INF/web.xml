@@ -29,10 +29,6 @@
         <servlet-class>LoginSecurity.LoginController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HomeManagementController</servlet-name>
-        <servlet-class>Management.HomeManagementController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>FeedbackController</servlet-name>
         <servlet-class>Management.FeedbackController</servlet-class>
     </servlet>
@@ -43,6 +39,14 @@
     <servlet>
         <servlet-name>RoomManagement</servlet-name>
         <servlet-class>Management.RoomManagementContoller</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetailsController</servlet-name>
+        <servlet-class>Management.OrdersController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderdetailsController</servlet-name>
+        <servlet-class>Management.OrderdetailsController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -73,10 +77,6 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HomeManagementController</servlet-name>
-        <url-pattern>/management/home</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>FeedbackController</servlet-name>
         <url-pattern>/management/feedback</url-pattern>
     </servlet-mapping>
@@ -87,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>RoomManagement</servlet-name>
         <url-pattern>/management/room</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetailsController</servlet-name>
+        <url-pattern>/management/orders</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderdetailsController</servlet-name>
+        <url-pattern>/management/orderdetails</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
