@@ -24,6 +24,26 @@
         <servlet-name>RoomDetailController</servlet-name>
         <servlet-class>HotelController.RoomDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>LoginSecurity.LoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeManagementController</servlet-name>
+        <servlet-class>Management.HomeManagementController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackController</servlet-name>
+        <servlet-class>Management.FeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>LoginSecurity.LogOutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RoomManagement</servlet-name>
+        <servlet-class>Management.RoomManagementContoller</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -47,6 +67,26 @@
     <servlet-mapping>
         <servlet-name>RoomDetailController</servlet-name>
         <url-pattern>/roomdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeManagementController</servlet-name>
+        <url-pattern>/management/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackController</servlet-name>
+        <url-pattern>/management/feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoomManagement</servlet-name>
+        <url-pattern>/management/room</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

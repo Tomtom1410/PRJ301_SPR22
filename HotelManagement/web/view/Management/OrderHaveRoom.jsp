@@ -27,11 +27,7 @@
                         </div>
                         <div class="col-md-4 Search">
                             <span class=" glyphicon glyphicon-search"></span> 
-                            <input id="content"
-                            <c:if test="${value != null}">
-                                value =${value}
-                            </c:if>
-                            type="text" placeholder="Enter customer's name">
+                            <input id="content" value ="${value}" type="text" placeholder="Enter customer's name">
                         <button type="button" onclick="search('haveRoom')">Search</button>
                     </div>
                 </div>

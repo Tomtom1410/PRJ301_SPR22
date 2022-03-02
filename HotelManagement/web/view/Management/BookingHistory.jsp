@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Del Luna Management</title>
+        <title>Your House Management</title>
         <!--java Script-->
         <script src="${pageContext.request.contextPath}/JavaScript/ManagementCode.js"></script>
         <script src="${pageContext.request.contextPath}/JavaScript/BookingCode.js"></script>
@@ -26,18 +26,17 @@
                             <h3><span class="glyphicon glyphicon-align-justify"></span> Booking History</h3>
                         </div>
                         <div class="col-md-4 Search">
-                            <span class=" glyphicon glyphicon-search"></span> 
-                            <input id="content"
-                            <c:if test="${value != null}">
-                                value =${value}
-                            </c:if>
-                            type="text" placeholder="Enter customer's name">
-                        <button type="button" onclick="search('booking')">Search</button>
+                            <form action="${pageContext.request.contextPath}/management/booking/history" method="POST">
+                            <span class=" glyphicon glyphicon-search"></span>
+                            <input id="content" type="text" name="keySearch" value ="${value}" placeholder="Enter customer's name">
+                            <button type="submit">Search</button>
+                        </form>
+
                     </div>
                 </div>
                 <div class="row information">
                     <div class="Banner">
-                        <form action="BookingHistory" method="POST">
+                        <form action="${pageContext.request.contextPath}/management/booking/history" method="POST">
                             <span>Display: </span>
                             <select name="sort">
                                 <option value="all">All</option>
@@ -79,7 +78,7 @@
                                     <td>${b.orderWait.checkOut}</td>
                                     <td>${b.isCancel()?"Yes":"No"}</td>
                                     <td>
-                                        <a href="BookingHistoryDetail?orderWaitID=${b.orderWait.orderWaitID}">Details</a>
+                                        <a href="${pageContext.request.contextPath}/management/booking/historydetails?orderWaitID=${b.orderWait.orderWaitID}">Details</a>
                                     </td>
                                 </tr>
                             </c:forEach>

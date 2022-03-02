@@ -38,7 +38,6 @@
                                 </c:if>
                                 href="RoomRented">The room is rented</a></li>
                     </ul>
-
                     <div class="typeRoom">
                         <div class="first">
                             <p>Single Room</p>

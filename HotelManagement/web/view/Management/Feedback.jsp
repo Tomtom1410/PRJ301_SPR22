@@ -11,7 +11,7 @@
         <!-- Bootstrap -->
         <!--java Script-->
         <script src="${pageContext.request.contextPath}/JavaScript/ManagementCode.js"></script>
-        <script src="${pageContext.request.contextPath}/JavaScript/BookingCode.js"></script>
+        <!--<script src="${pageContext.request.contextPath}/JavaScript/BookingCode.js"></script>-->
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
         <link href="${pageContext.request.contextPath}/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,9 +32,7 @@
                         <div class="col-md-4 Search">
                             <span class=" glyphicon glyphicon-search"></span>
                             <input id="content"
-                            <c:if test="${value != null}">
-                                value =${value}
-                            </c:if>
+                                   value ="${value}"
                             type="text" placeholder="Enter customer's name">
                         <button type="button" onclick="search('feedback')">Search</button>
                     </div>
@@ -59,6 +57,10 @@
                     </div>
                     <script>
                         generatePagger('paggingBottom',${requestScope.pageIndex},${requestScope.totalPage}, '${requestScope.url}', 2);
+                        function search(keyName) {
+                            var content = document.getElementById('content').value;
+                            window.location.href = "search?value=" + content + "&keyName=" + keyName;
+                        }
                     </script>
                 </div>
             </div>
