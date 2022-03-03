@@ -25,13 +25,14 @@
                 </a>
             </li>
             <li>
-                <a href="orders"> <i class="fa fa-notes-medical"></i>Order Details
+                <a href="${pageContext.request.contextPath}/management/orders">
+                    <i class="fa fa-notes-medical"></i><span>Order Details</span>
                 </a>
             </li>
 
             <li>
-                <a href="">
-                    <i class="fa fa-globe"></i> <span>Basic Elements</span>
+                <a href="${pageContext.request.contextPath}/management/bookinghistory">
+                    <i class="fa fa-globe"></i> <span>Booking History</span>
                 </a>
             </li>
 

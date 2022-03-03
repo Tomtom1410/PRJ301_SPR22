@@ -48,6 +48,10 @@
         <servlet-name>OrderdetailsController</servlet-name>
         <servlet-class>Management.OrderdetailsController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookingHistoryController</servlet-name>
+        <servlet-class>Management.BookingHistoryController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>OrderdetailsController</servlet-name>
         <url-pattern>/management/orderdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingHistoryController</servlet-name>
+        <url-pattern>/management/bookinghistory</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

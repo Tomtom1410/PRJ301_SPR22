@@ -10,13 +10,16 @@ import dal.DepartmentDBContext;
 import dal.OrderWaitDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.BookingDetail;
+import model.Customer;
 import model.Department;
+import model.OrderWait;
 
 /**
  *
@@ -64,6 +67,116 @@ public class OrderdetailsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String type = request.getParameter("type");
+//       response.getWriter().print(type);
+        if (type.equals("wait")) {
+            setRoomForOrfer(request, response);
+        } else {
+            updateBooking(request, response);
+        }
+    }
+
+    private void setRoomForOrfer(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String buttonValue = request.getParameter("button");
+//        response.getWriter().print(buttonValue);
+        if (buttonValue.equals("cancel")) {
+            OrderWaitDBContext odb = new OrderWaitDBContext();
+            odb.deleteOrder(request.getParameter("orderId"));
+//            response.sendRedirect("orders");
+        } else {
+            BookingDBContext bdb = new BookingDBContext();
+            OrderWait o = new OrderWait();
+            o.setOrderWaitID(Integer.parseInt(request.getParameter("orderId")));
+            o.setNoOfRoom(Integer.parseInt(request.getParameter("noOfRoom")));
+            Customer c = new Customer();
+            c.setCustomerID(Integer.parseInt(request.getParameter("customerId")));
+            o.setCustomer(c);
+            String[] roomIDs = request.getParameterValues("deptId");
+
+            ArrayList<Department> rooms = new ArrayList<>();
+            for (String roomID : roomIDs) {
+                Department d = new Department();
+                d.setDeptID(Integer.parseInt(roomID));
+//                response.getWriter().print(d.getDeptID()+ " ");
+                rooms.add(d);
+            }
+//            response.getWriter().print("\n" + o.getCustomer().getCustomerID() + " " + o.getNoOfRoom() + " " + o.getOrderWaitID());
+            BookingDetail b = new BookingDetail();
+            b.setOrderWait(o);
+            b.setDepartments(rooms);
+            bdb.insertBooking(b);
+        }
+        response.sendRedirect("orders");
+    }
+
+    private void updateBooking(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String buttonValue = request.getParameter("button");
+        BookingDBContext bdb = new BookingDBContext();
+        if (buttonValue.equals("cancel")) {
+            OrderWait o = new OrderWait();
+            o.setOrderWaitID(Integer.parseInt(request.getParameter("orderId")));
+            Customer c = new Customer();
+            c.setCustomerID(Integer.parseInt(request.getParameter("customerID")));
+            o.setCustomer(c);
+            bdb.cancelBookingDetail(o);
+            response.sendRedirect("orders");
+        } else {
+//            Date checkin = Date.valueOf(buttonValue);
+            //get orderWait
+            OrderWait o = new OrderWait();
+            o.setOrderWaitID(Integer.parseInt(request.getParameter("orderId")));
+            o.setNoOfRoom(Integer.parseInt(request.getParameter("noOfRoom")));
+            o.setCheckIn(Date.valueOf(request.getParameter("checkin")));
+            o.setCheckOut(Date.valueOf(request.getParameter("checkout")));
+            Department d = new Department();
+            d.setDeptName(request.getParameter("deptName"));
+            o.setDepartment(d);
+            // get customer
+            Customer c = new Customer();
+            c.setCustomerID(Integer.parseInt(request.getParameter("customerID")));
+            c.setAddress(request.getParameter("address"));
+            c.setCustomerName(request.getParameter("customerName"));
+            c.setPhone(request.getParameter("phone"));
+            c.setEmail(request.getParameter("email"));
+            o.setCustomer(c);
+
+            String[] roomIDs = request.getParameterValues("deptId");
+
+            // update bookingDetail
+            ArrayList<Department> rooms = new ArrayList<>();
+            for (String roomID : roomIDs) {
+                Department r = new Department();
+                r.setDeptID(Integer.parseInt(roomID));
+                rooms.add(r);
+            }
+
+            BookingDetail b = new BookingDetail();
+            b.setDepartments(rooms);
+            b.setOrderWait(o);
+            //check checkin-out valid
+            if (o.getCheckIn().after(o.getCheckOut())) {
+                request.setAttribute("checkDate", false);
+            } else {
+                bdb.updateInforBooking(b);
+                request.setAttribute("tag", "done");
+            }
+
+            DepartmentDBContext ddb = new DepartmentDBContext();
+            request.setAttribute("booking", b);
+            request.setAttribute("deptName", d.getDeptName());
+            ArrayList<Department> roomModel = ddb.getRoomModel();
+            request.setAttribute("roomType", roomModel);
+            ArrayList<Department> room = ddb.getRoomByName(d.getDeptName());
+            request.setAttribute("rooms", room);
+            request.setAttribute("rented", "1");
+//        response.getWriter().print(orderID + " " + rented);
+            request.getRequestDispatcher("../view/AdminDirector/OrderDetails.jsp").forward(request, response);
+
+        }
+
     }
 
     /**

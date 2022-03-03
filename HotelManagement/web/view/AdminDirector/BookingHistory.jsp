@@ -20,36 +20,30 @@
                     <div class="col-xs-12">
                         <div class="panel">
                             <header class="panel-heading">
-                                Orders Information
+                                Booking History
                             </header>
                             <div class="panel-body table-responsive">
                                 <div class="box-tools m-b-15 row">
                                     <div class="col-md-8 row">
-                                        <div class="col-md-6">
-                                            <button style="width: 148px;" class="btn 
-                                            <c:if test="${requestScope.rented eq '0' || requestScope.rented == null}">
-                                                btn-warning
-                                            </c:if>
-                                            <c:if test="${requestScope.rented != '0'}">
-                                                btn-success
-                                            </c:if>
-                                            " onclick="chooseOrder('0')">Orders wait</button>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button style="width: 148px;" class="btn 
-                                                <c:if test="${requestScope.rented eq '1'}">
-                                                    btn-warning
-                                                </c:if>
-                                                <c:if test="${requestScope.rented != '1'}">
-                                                    btn-success
-                                                </c:if>
-                                                " onclick="chooseOrder('1')">Orders have room</button>
-                                    </div>
+                                        <form id="filter" action="bookinghistory" method="GET" onchange="submitForm()">
+                                            <div class="col-md-6">
+                                                <span>Status:</span>
+                                                <select name="status">
+                                                    <option ${requestScope.status eq 'all' ? "selected=\"selected\"":""} value="all">All</option>
+                                                <option ${requestScope.status eq '0' ? "selected=\"selected\"":""} value="0">Not cancel</option>
+                                                <option ${requestScope.status eq '1' ? "selected=\"selected\"":""} value="1">Cancel</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                    <script>
+                                        function submitForm() {
+                                            document.getElementById('filter').submit();
+                                        }
+                                    </script>
                                 </div>
                                 <div class="col-md-4">
-                                    <form action="orders" method="GET">
+                                    <form action="bookinghistory" method="GET">
                                         <div class="input-group">
-                                            <input type="hidden" name="rented" value="${requestScope.rented}">
                                             <input type="text" name="key" value="${requestScope.key}" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
                                             <div class="input-group-btn">
                                                 <button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
@@ -57,40 +51,35 @@
                                         </div>
                                     </form>
                                 </div>
+
                             </div>
-                            <c:if test="${requestScope.orders.isEmpty()}">
-                                <h2>There are no orders</h2>
+                            <c:if test="${requestScope.bookings.isEmpty()}">
+                                <h2>There are no booking details you want</h2>
                             </c:if>
-                            <c:if test="${!requestScope.rooms.isEmpty()}">
+                            <c:if test="${!requestScope.bookings.isEmpty()}">
                                 <table 
-                                    <c:if test="${requestScope.orders.isEmpty()}">
+                                    <c:if test="${requestScope.bookings.isEmpty()}">
                                         style="display: none;"
                                     </c:if>
                                     class="table table-hover">
                                     <tr>
                                         <th>Customer Name</th>
                                         <th>Number phone</th>
-                                        <th>Number of room</th>
-                                        <th>Room type</th>
                                         <th>Check-in</th>
                                         <th>Check-out</th>
-                                        <th>Rented</th>
+                                        <th>Cancel Order</th>
                                         <th>View</th>
-                                        <!--<th>Reason</th>-->
                                     </tr>
-                                    <c:forEach items="${orders}" var="o">
+                                    <c:forEach items="${requestScope.bookings}" var="b">
                                         <tr>
-                                            <td>${o.customer.customerName}</td>
-                                            <td>${o.customer.phone}</td>
-                                            <td>${o.noOfRoom}</td>
-                                            <td>${o.department.deptName}</td>
-                                            <td>${o.checkIn}</td>
-                                            <td>${o.checkOut}</td>
-                                            <td>${o.isRented()?"Yes":"No"}</td>
+                                            <td>${b.orderWait.customer.customerName}</td>
+                                            <td>${b.orderWait.customer.phone}</td>
+                                            <td>${b.orderWait.checkIn}</td>
+                                            <td>${b.orderWait.checkOut}</td>
+                                            <td>${b.isCancel()?"Yes":"No"}</td>
                                             <td>
-                                                <form action="orders" method="POST">
-                                                    <input type="hidden" name="rented" value="${requestScope.rented}">
-                                                    <input type="hidden" name="orderWaitID" value="${o.orderWaitID}">
+                                                <form action="bookinghistory" method="POST">
+                                                    <input type="hidden" name="orderId" value="${b.orderWait.orderWaitID}">
                                                     <button type="submit" class="label btn-primary" style="border: none; color: white;">Details</button>
                                                 </form>
                                             </td>
@@ -122,13 +111,8 @@
                                         if (pageIndex + gap < totalpage)
                                             container.innerHTML += '<li class="page-item"><a class="page-link" href="' + url + totalpage + '">Last</a></li>';
                                     }
-
-                                    function chooseOrder(rented) {
-                                        window.location.href = "orders?rented=" + rented;
-                                    }
                                 </script>
                             </c:if>
-
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
                 </div>
