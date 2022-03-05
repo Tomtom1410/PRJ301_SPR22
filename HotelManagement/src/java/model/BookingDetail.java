@@ -8,17 +8,17 @@ import java.util.ArrayList;
  */
 public class BookingDetail {
 
-    private int BookingID;
+    private int bookingID;
     private OrderWait orderWait;
     private ArrayList<Department> departments = new ArrayList<>();
     private boolean cancel;
 
     public int getBookingID() {
-        return BookingID;
+        return bookingID;
     }
 
     public void setBookingID(int BookingID) {
-        this.BookingID = BookingID;
+        this.bookingID = BookingID;
     }
 
     public OrderWait getOrderWait() {

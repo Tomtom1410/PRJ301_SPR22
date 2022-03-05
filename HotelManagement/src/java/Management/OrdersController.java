@@ -38,6 +38,8 @@ public class OrdersController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String raw_page = request.getParameter("page");
         if (raw_page == null || raw_page.length() == 0) {
             raw_page = "1";
@@ -83,6 +85,7 @@ public class OrdersController extends HttpServlet {
         }
         request.setAttribute("rented", rented);
         request.setAttribute("pageindex", pageIndex);
+        request.setAttribute("tagmenu", "orders");
         request.getRequestDispatcher("../view/AdminDirector/OrdersList.jsp").forward(request, response);
     }
 
@@ -97,6 +100,8 @@ public class OrdersController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String orderID = request.getParameter("orderWaitID");
         String rented = request.getParameter("rented");
         OrderWaitDBContext odb = new OrderWaitDBContext();
@@ -120,7 +125,7 @@ public class OrdersController extends HttpServlet {
             request.setAttribute("deptName", booking.getOrderWait().getDepartment().getDeptName());
         }
         request.setAttribute("rented", rented);
-//        response.getWriter().print(orderID + " " + rented);
+        request.setAttribute("tagmenu", "orders");
         request.getRequestDispatcher("../view/AdminDirector/OrderDetails.jsp").forward(request, response);
     }
 

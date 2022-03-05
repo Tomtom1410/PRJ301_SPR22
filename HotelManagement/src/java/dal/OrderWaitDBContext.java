@@ -15,7 +15,7 @@ public class OrderWaitDBContext extends DBContext {
     PreparedStatement stm;
     ResultSet rs;
 
-    public void orderWait(OrderWait o) {
+    public void insertOrder(OrderWait o) {
         try {
             connection.setAutoCommit(false);
             CustomerDBContext cdb = new CustomerDBContext();
@@ -50,14 +50,16 @@ public class OrderWaitDBContext extends DBContext {
                     + "           ,[CheckIn]\n"
                     + "           ,[CheckOut]\n"
                     + "           ,[noOfRooms]\n"
-                    + "           ,[Rented])\n"
+                    + "           ,[Rented]\n"
+                    + "           ,[Cancel])\n"
                     + "     VALUES\n"
                     + "           (?\n"
                     + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?\n"
-                    + "           ,?)";
+                    + "           ,?"
+                    + "           ,0)";
             PreparedStatement stm_o = connection.prepareStatement(sql_insertOrder);
             stm_o.setString(1, o.getDepartment().getDeptName());
             stm_o.setInt(2, o.getCustomer().getCustomerID());
@@ -93,7 +95,7 @@ public class OrderWaitDBContext extends DBContext {
                     + "			,orderWaitID, deptName, CheckIn, CheckOut, noOfRooms,Rented\n"
                     + "		FROM OrderWait \n"
                     + "		inner join Customer on Customer.CustomerID = OrderWait.CustomerID\n"
-                    + "         where Rented = " + rented + "\n";
+                    + "         where cancel = 0 and Rented = " + rented + "\n";
             if (key != null) {
                 sql += "        and CustomerName like '%" + key + "%' or phone like '%" + key + "%'\n";
             }
@@ -232,7 +234,7 @@ public class OrderWaitDBContext extends DBContext {
                 c.setPhone(rs.getString(3));
                 c.setEmail(rs.getString(4));
                 c.setAddress(rs.getString(5));
-                Department d = new  Department();
+                Department d = new Department();
                 d.setDeptName(rs.getString(6));
                 OrderWait o = new OrderWait();
                 o.setCustomer(c);
@@ -267,6 +269,6 @@ public class OrderWaitDBContext extends DBContext {
 //        for (OrderWait orderWait : odb.getInformationOrderWait(1, 10, "0", "096")) {
 //            System.out.println(orderWait.getCustomer().getCustomerName());
 //        }
-          System.out.println(odb.getOrderById(1).getCustomer().getCustomerName());
+        System.out.println(odb.getOrderById(1).getCustomer().getCustomerName());
     }
 }

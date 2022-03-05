@@ -3,7 +3,7 @@
     Created on : Mar 2, 2022, 11:37:48 AM
     Author     : conmu
 --%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="Linkcss.jsp"></jsp:include>
     <!-- header logo: style can be found in header.less -->
@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-success center-block col-sm-10" onclick="location.href='orders'">Back</button>
+                                    <button type="button" class="btn btn-success center-block col-sm-10" onclick="location.href = 'orders'">Back</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <button type="submit" name="button" value="cancel" class="btn btn-danger center-block col-sm-10">Cancel</button>
@@ -127,11 +127,12 @@
                                     <input type="hidden" name="type" value="update">
                                     <input type="hidden" name="customerID" value="${booking.orderWait.customer.customerID}"> 
                                     <input type="text" name="customerName" class="form-control" 
-                                           pattern="^[a-zA-ZaA��??����??????????????��??????????bBcCdD??eE��????��??��??????????fFgGhHiI��????��??jJkKlLmMnNoO��??����??��??????????????????????pPqQrRsStTuU��????��??????????????vVwWxXyY??????��??\s]+$" 
+                                           pattern="^[a-zA-ZaAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴ\s]+$"
                                            title="Fullname cannot contain special characters!" 
                                            value="${booking.orderWait.customer.customerName}"
                                            required placeholder="Full Name">
                                 </div>
+
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 col-sm-2 control-label">Email *:</label>
@@ -231,7 +232,7 @@
 
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-success center-block col-sm-10" onclick="location.href='orders?rented=1'">Back</button>
+                                    <button type="button" class="btn btn-success center-block col-sm-10" onclick="location.href = 'orders?rented=1'">Back</button>
                                 </div>
                                 <div class="col-sm-2">
                                     <button type="submit" name="button" value="cancel" class="btn btn-danger center-block col-sm-10">Cancel</button>

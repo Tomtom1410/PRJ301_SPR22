@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header class="header">
     <a href="#" class="logo">
         <!-- Add the class icon to your logo image or logo icon to add the margining -->
@@ -19,26 +20,32 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <ul class="sidebar-menu">
-            <li>
+            <li <c:if test="${tagmenu eq 'room'}">class="active"</c:if> >
                 <a href="${pageContext.request.contextPath}/management/room">
                     <i class="fa fa-bed"></i> <span>Rooms</span>
                 </a>
             </li>
-            <li>
+            <li <c:if test="${tagmenu eq 'orders'}">class="active"</c:if> >
                 <a href="${pageContext.request.contextPath}/management/orders">
                     <i class="fa fa-notes-medical"></i><span>Order Details</span>
                 </a>
             </li>
 
-            <li>
+            <li <c:if test="${tagmenu eq 'booking'}">class="active"</c:if> >
                 <a href="${pageContext.request.contextPath}/management/bookinghistory">
-                    <i class="fa fa-globe"></i> <span>Booking History</span>
+                    <i class="fa fa-history"></i> <span>Booking History</span>
                 </a>
             </li>
 
-            <li class="active">
-                <a href="#">
-                    <i class="fa fa-glass"></i> <span>Simple tables</span>
+            <li <c:if test="${tagmenu eq 'feedback'}">class="active"</c:if> >
+                
+                <a href="${pageContext.request.contextPath}/management/feedback">
+                    <i class="fa fa-comments"></i> <span>Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/logout">
+                    <i class="glyphicon glyphicon-log-out"></i> <span>Logout</span>
                 </a>
             </li>
 

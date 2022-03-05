@@ -7,7 +7,6 @@ package Management;
 
 import dal.FeedBackDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,37 +20,7 @@ import model.Feedback;
  */
 public class FeedbackController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-         String tagMenu = "feedback";
-        int pageSize = 20;
-        String raw_page = request.getParameter("page");
-        if (raw_page == null || raw_page.length() == 0) {
-            raw_page = "1";
-        }
-        int pageIndex = Integer.parseInt(raw_page);
-        FeedBackDBContext fdb = new FeedBackDBContext();
-        ArrayList<Feedback> feedback = fdb.getFeedback(pageIndex, pageSize);
-        int totalFeed = fdb.toltalFeedback();
-        int totalPage = (totalFeed % pageSize == 0) ? totalFeed / pageSize : totalFeed / pageSize + 1;
-        String url = "Feedback?page=";
-        request.setAttribute("url", url);
-        request.setAttribute("tagMenu", tagMenu);
-        request.setAttribute("feedbacks", feedback);
-        request.setAttribute("pageIndex", pageIndex);
-        request.setAttribute("totalPage", totalPage);
-        
-        request.getRequestDispatcher("../view/Management/Feedback.jsp").forward(request, response);
-    }
+    private final int pagesize = 10;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -65,7 +34,38 @@ public class FeedbackController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        String tagMenu = "feedback";
+        String raw_page = request.getParameter("page");
+        if (raw_page == null || raw_page.length() == 0) {
+            raw_page = "1";
+        }
+        int pageIndex = Integer.parseInt(raw_page);
+        FeedBackDBContext fdb = new FeedBackDBContext();
+        String key = request.getParameter("key");
+        if (key != null) {
+            ArrayList<Feedback> feedback = fdb.getAllFeedback(key, pageIndex, pagesize);
+            int totalFeed = fdb.toltalFeedback(key);
+            int totalPage = (totalFeed % pagesize == 0) ? totalFeed / pagesize : totalFeed / pagesize + 1;
+            String url = "feedback?key=" + key + "&page=";
+            request.setAttribute("url", url);
+            request.setAttribute("tagMenu", tagMenu);
+            request.setAttribute("feedbacks", feedback);
+            request.setAttribute("pageindex", pageIndex);
+            request.setAttribute("totalPage", totalPage);
+        } else {
+            ArrayList<Feedback> feedback = fdb.getAllFeedback(null, pageIndex, pagesize);
+            int totalFeed = fdb.toltalFeedback(null);
+            int totalPage = (totalFeed % pagesize == 0) ? totalFeed / pagesize : totalFeed / pagesize + 1;
+            String url = "feedback?page=";
+            request.setAttribute("url", url);
+            request.setAttribute("tagmenu", tagMenu);
+            request.setAttribute("feedbacks", feedback);
+            request.setAttribute("pageindex", pageIndex);
+            request.setAttribute("totalPage", totalPage);
+        }
+        request.getRequestDispatcher("../view/AdminDirector/Feedback.jsp").forward(request, response);
     }
 
     /**
@@ -79,7 +79,12 @@ public class FeedbackController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String id = request.getParameter("feedId");
+        FeedBackDBContext fdb = new FeedBackDBContext();
+        Feedback feedbackByID = fdb.getFeedbackByID(Integer.parseInt(id));
+        request.setAttribute("feedback", feedbackByID);
+        request.setAttribute("tagmenu", "feedback");
+        request.getRequestDispatcher("../view/AdminDirector/FeedbackDetails.jsp").forward(request, response);
     }
 
     /**

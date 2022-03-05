@@ -51,6 +51,8 @@ public class ContactController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         Customer c = new Customer();
         c.setCustomerName(request.getParameter("name"));
         c.setEmail(request.getParameter("email"));
@@ -65,7 +67,7 @@ public class ContactController extends HttpServlet {
 
         FeedBackDBContext fdb = new FeedBackDBContext();
         fdb.insertFeedBack(f);
-        response.sendRedirect("Contact");
+        response.sendRedirect("contact");
     }
 
     /**

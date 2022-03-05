@@ -9,7 +9,6 @@ import dal.BookingDBContext;
 import dal.DepartmentDBContext;
 import dal.OrderWaitDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -39,6 +38,8 @@ public class OrderdetailsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String orderID = request.getParameter("orderId");
         String rented = request.getParameter("rented");
         String deptName = request.getParameter("deptName");
@@ -53,6 +54,7 @@ public class OrderdetailsController extends HttpServlet {
         request.setAttribute("rooms", rooms);
         request.setAttribute("rented", rented);
         request.setAttribute("deptName", deptName);
+        request.setAttribute("tagmenu", "booking");
         request.getRequestDispatcher("../view/AdminDirector/OrderDetails.jsp").forward(request, response);
     }
 
@@ -67,9 +69,10 @@ public class OrderdetailsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 
         String type = request.getParameter("type");
-//       response.getWriter().print(type);
         if (type.equals("wait")) {
             setRoomForOrfer(request, response);
         } else {
@@ -80,11 +83,9 @@ public class OrderdetailsController extends HttpServlet {
     private void setRoomForOrfer(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String buttonValue = request.getParameter("button");
-//        response.getWriter().print(buttonValue);
         if (buttonValue.equals("cancel")) {
             OrderWaitDBContext odb = new OrderWaitDBContext();
             odb.deleteOrder(request.getParameter("orderId"));
-//            response.sendRedirect("orders");
         } else {
             BookingDBContext bdb = new BookingDBContext();
             OrderWait o = new OrderWait();
@@ -99,10 +100,8 @@ public class OrderdetailsController extends HttpServlet {
             for (String roomID : roomIDs) {
                 Department d = new Department();
                 d.setDeptID(Integer.parseInt(roomID));
-//                response.getWriter().print(d.getDeptID()+ " ");
                 rooms.add(d);
             }
-//            response.getWriter().print("\n" + o.getCustomer().getCustomerID() + " " + o.getNoOfRoom() + " " + o.getOrderWaitID());
             BookingDetail b = new BookingDetail();
             b.setOrderWait(o);
             b.setDepartments(rooms);
@@ -113,19 +112,14 @@ public class OrderdetailsController extends HttpServlet {
 
     private void updateBooking(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String buttonValue = request.getParameter("button");
         BookingDBContext bdb = new BookingDBContext();
         if (buttonValue.equals("cancel")) {
             OrderWait o = new OrderWait();
-            o.setOrderWaitID(Integer.parseInt(request.getParameter("orderId")));
-            Customer c = new Customer();
-            c.setCustomerID(Integer.parseInt(request.getParameter("customerID")));
-            o.setCustomer(c);
-            bdb.cancelBookingDetail(o);
+            bdb.cancelBooking(o.getOrderWaitID());
             response.sendRedirect("orders");
         } else {
-//            Date checkin = Date.valueOf(buttonValue);
-            //get orderWait
             OrderWait o = new OrderWait();
             o.setOrderWaitID(Integer.parseInt(request.getParameter("orderId")));
             o.setNoOfRoom(Integer.parseInt(request.getParameter("noOfRoom")));
@@ -172,7 +166,7 @@ public class OrderdetailsController extends HttpServlet {
             ArrayList<Department> room = ddb.getRoomByName(d.getDeptName());
             request.setAttribute("rooms", room);
             request.setAttribute("rented", "1");
-//        response.getWriter().print(orderID + " " + rented);
+            request.setAttribute("tagmenu", "orders");
             request.getRequestDispatcher("../view/AdminDirector/OrderDetails.jsp").forward(request, response);
 
         }

@@ -16,8 +16,6 @@
         <link href="${pageContext.request.contextPath}/CSS/HotelStyle/FooterStyle.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/CSS/HotelStyle/HeaderStyle.css" rel="stylesheet" type="text/css"/>
         <!--java Script-->
-        <script src="${pageContext.request.contextPath}/JavaScript/ContactCode.js"></script>
-
     </head>
 
     <body>
@@ -31,7 +29,7 @@
                 <!-- Contact -->
                 <div class="row Contact">
                     <div class="col-md-8">
-                        <form action="Contact" method="POST" id="customerFeedBack">
+                        <form action="contact" method="POST" id="customerFeedBack">
                             <h2>Comment Or Complaints To Us</h2>
                             <table>
                                 <tr>
@@ -39,7 +37,7 @@
                                 </tr>
                                 <tr>
                                     <td><input name ="name" id="name" type="text" placeholder="Fullname"
-                                               pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" 
+                                               pattern="^[a-zA-ZaAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴ\s]+$"
                                                title="Fullname cannot contain special characters!" required> *</td>
                                 </tr>
                                 <tr>
@@ -53,7 +51,7 @@
                                                id="phone" type="text" placeholder="Number phone" required> *</td>
                                 </tr>
                                 <tr>
-                                    <td><input name="address" id="address" type="text" placeholder="Address" required> *</td>
+                                    <td><input name="address" id="address" type="text" placeholder="Address"></td>
                                 </tr>
                                 <tr>
                                     <td><textarea name="feedback" id="feedback" cols="55" rows="8" placeholder="Comment" required></textarea> *</td>
@@ -65,6 +63,14 @@
                                 </tr>
                             </table>
                         </form>
+                        <script>
+                            // Contact
+                            function submitForm() {
+                                alert("Thanks for your feedback!");
+//                                document.getElementById('customerFeedBack').submit();
+                            }
+
+                        </script>
                     </div>
 
                     <div class="col-md-4">

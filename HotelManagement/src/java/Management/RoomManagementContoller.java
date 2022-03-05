@@ -35,6 +35,8 @@ public class RoomManagementContoller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String pageindex_raw = request.getParameter("pageindex");
 
         if (pageindex_raw == null || pageindex_raw.trim().length() == 0) {
@@ -75,6 +77,7 @@ public class RoomManagementContoller extends HttpServlet {
                 request.setAttribute("url", url);
             }
         }
+        request.setAttribute("tagmenu", "room");
         request.setAttribute("pageindex", pageindex);
         request.getRequestDispatcher("../view/AdminDirector/Room.jsp").forward(request, response);
     }
@@ -91,7 +94,6 @@ public class RoomManagementContoller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
-
     }
 
     /**

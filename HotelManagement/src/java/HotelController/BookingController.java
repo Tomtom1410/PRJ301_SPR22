@@ -5,6 +5,7 @@
  */
 package HotelController;
 
+import dal.DepartmentDBContext;
 import dal.OrderWaitDBContext;
 import java.io.IOException;
 import java.sql.Date;
@@ -49,6 +50,8 @@ public class BookingController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String name = request.getParameter("customerName");
         String deptName = request.getParameter("roomName");
         String email = request.getParameter("email");
@@ -71,9 +74,24 @@ public class BookingController extends HttpServlet {
         o.setNoOfRoom(Integer.parseInt(noOfRooms));
         o.setDepartment(d);
         o.setCustomer(customer);
-        OrderWaitDBContext odb = new OrderWaitDBContext();
-        odb.orderWait(o);
-        response.sendRedirect("room");
+
+        if (o.getCheckIn().after(o.getCheckOut())) {
+            DepartmentDBContext ddb = new DepartmentDBContext();
+            Department dt = ddb.getRoomByName(deptName).get(0);
+            String url_image = dt.getUrl().get(0);
+            dt.getUrl().remove(url_image);
+            request.setAttribute("order", o);
+            request.setAttribute("note", false);
+            request.setAttribute("room", dt);
+            request.setAttribute("url_image", url_image);
+            String tag = "room";
+            request.setAttribute("tag", tag);
+            request.getRequestDispatcher("view/Hotel/RoomDetail.jsp").forward(request, response);
+        } else {
+            OrderWaitDBContext odb = new OrderWaitDBContext();
+            odb.insertOrder(o);
+            response.sendRedirect("room");
+        }
     }
 
     /**

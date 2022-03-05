@@ -36,6 +36,8 @@ public class BookingHistoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String raw_page = request.getParameter("page");
         if (raw_page == null || raw_page.length() == 0) {
             raw_page = "1";
@@ -80,8 +82,8 @@ public class BookingHistoryController extends HttpServlet {
 
         }
 
-        String tagMenu = "history";
-        request.setAttribute("tagMenu", tagMenu);
+        String tagMenu = "booking";
+        request.setAttribute("tagmenu", tagMenu);
         request.getRequestDispatcher("../view/AdminDirector/BookingHistory.jsp").forward(request, response);
     }
 
@@ -96,15 +98,21 @@ public class BookingHistoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String orderId = request.getParameter("orderId");
-
         BookingDBContext bdb = new BookingDBContext();
+
         BookingDetail booking = bdb.getBookingDetail(Integer.parseInt(orderId));
         request.setAttribute("booking", booking);
-        InvoiceDBContext idb = new InvoiceDBContext();
-        Invoice invoice = idb.getInvoiceByCustomer(booking.getOrderWait().getCustomer().getCustomerID());
-        request.setAttribute("invoice", invoice);
+        if (!booking.isCancel()) {
+            InvoiceDBContext idb = new InvoiceDBContext();
+            Invoice invoice = idb.getInvoiceByCustomer(booking.getOrderWait().getCustomer().getCustomerID());
+            request.setAttribute("invoice", invoice);
+        }
+        request.setAttribute("tagmenu", "booking");
         request.getRequestDispatcher("../view/AdminDirector/BookingDetails.jsp").forward(request, response);
+
     }
 
     /**

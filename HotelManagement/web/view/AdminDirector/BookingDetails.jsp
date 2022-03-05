@@ -57,20 +57,14 @@
                             <span class="form-control" style="font-weight: bolder;">${booking.orderWait.customer.phone}</span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <c:if test="${booking.isCancel()}">
-                            <div class="col-sm-10">
-                                <span class="form-control" style="color: red;">Customer has canceled the room</span>
-                            </div>
-                        </c:if>
-                        <c:if test="${!booking.isCancel()}">
+
+                    <c:if test="${!booking.isCancel()}">
+                        <div class="form-group">
                             <label class="col-sm-2 col-sm-2 control-label">Number of rooms:</label>
                             <div class="col-sm-10">
                                 <span class="form-control" style="font-weight: bolder;">${booking.orderWait.noOfRoom}</span>
                             </div>
-                        </c:if>
-                    </div>
-                    <c:if test="${!booking.isCancel()}">
+                        </div>
                         <div class="form-group">
                             <label class="col-sm-2 col-sm-2 control-label">List rooms:</label>
                             <div class="col-sm-10">
@@ -81,23 +75,43 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Amount to be paid:</label>
+                            <div class="col-sm-10">
+                                <span class="form-control" style="font-weight: bolder;">${invoice.totalPrice}$</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <button type="button" onclick="location.href = 'bookinghistory'" class="btn btn-success center-block col-sm-10">Back</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <form action="bookingdetails">
+                                    <input type="hidden" name="orderId" value="${booking.orderWait.orderWaitID}">
+                                    <button type="submit" class="btn btn-danger center-block col-sm-10">Cancel</button>
+                                </form>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="btn btn-info center-block col-sm-10">Payment</button>
+                            </div>
+                        </div>
                     </c:if>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Amount to be paid:</label>
-                        <div class="col-sm-10">
-                            <span class="form-control" style="font-weight: bolder;">${invoice.totalPrice}$</span>
+                    <c:if test="${booking.isCancel()}">
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <span style="color: red; font-weight: bolder;">Customer has canceled the room</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-4">
+                        <div class="col-sm-12">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10">
+                                <button type="button" onclick="location.href = 'bookinghistory'" class="btn btn-success center-block col-sm-10">Back</button>
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <button type="button" onclick="location.href = 'bookinghistory'" class="btn btn-danger center-block col-sm-10">Discard</button>
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="button" class="btn btn-info center-block col-sm-10">Payment</button>
-                        </div>
-                    </div>
+                    </c:if>
+
+
                 </div>
             </div>
         </section>
