@@ -72,7 +72,7 @@ public class DepartmentDBContext extends DBContext {
                     + "from Department\n"
                     + "inner join RoomTypeAndUrl\n"
                     + "on Department.roomType = RoomTypeAndUrl.roomType\n"
-                    + "where deptName = ? \n";
+                    + "where deptName = ? and [Status] = 0\n";
             stm = connection.prepareStatement(sql);
             stm.setString(1, name);
             rs = stm.executeQuery();

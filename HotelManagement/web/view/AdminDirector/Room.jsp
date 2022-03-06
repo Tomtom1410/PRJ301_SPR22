@@ -19,8 +19,13 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="panel">
-                            <header class="panel-heading">
-                                Rooms Information
+                            <header class="panel-heading row">
+                                <div class="col-md-10">
+                                    Rooms Information
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-danger" href="addorder">Add new order</a>
+                                </div>
                             </header>
                             <div class="panel-body table-responsive">
                                 <div class="box-tools m-b-15 row">
@@ -84,10 +89,10 @@
                                             <td>${r.typeRoom}</td>
                                             <td>${r.status eq true ? "Rented":"Empty"}</td>
                                             <td>
-                                                <c:if test="${r.status}"><button class="btn btn-danger">Check-out</button>
-                                                </c:if>
-                                            </td>
-                                        </tr>
+                                                <c:if test="${r.status}"><button class="btn btn-danger" style="width: 90px;">Check-out</button></c:if>
+                                                <c:if test="${!r.status}"><button class="btn btn-success" style="width: 90px;">Check-in </button></c:if>
+                                                </td>
+                                            </tr>
                                     </c:forEach>
                                 </table>
                                 <div style="float: right;">

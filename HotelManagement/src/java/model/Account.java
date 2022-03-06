@@ -9,11 +9,11 @@ package model;
  *
  * @author Tom
  */
-public class Administrator {
+public class Account {
     private String username;
     private String password;
 
-    public Administrator() {
+    public Account() {
     }
 
     public String getUsername() {

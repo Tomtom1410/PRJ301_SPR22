@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Administrator;
+import model.Account;
 
 /**
  *
@@ -18,7 +18,7 @@ import model.Administrator;
  */
 public class AdminstratorDBContext extends DBContext {
 
-    public Administrator getAccount(String username, String password) {
+    public Account getAccount(String username, String password) {
 
         try {
             String sql = "SELECT * FROM systemAdministrator\n"
@@ -28,7 +28,7 @@ public class AdminstratorDBContext extends DBContext {
             stm.setString(2, password);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                Administrator acc = new Administrator();
+                Account acc = new Account();
                 acc.setUsername("username");
                 acc.setPassword("password");
                 return acc;

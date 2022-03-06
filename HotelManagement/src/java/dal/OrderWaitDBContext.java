@@ -15,7 +15,7 @@ public class OrderWaitDBContext extends DBContext {
     PreparedStatement stm;
     ResultSet rs;
 
-    public void insertOrder(OrderWait o) {
+    public int insertOrder(OrderWait o) {
         try {
             connection.setAutoCommit(false);
             CustomerDBContext cdb = new CustomerDBContext();
@@ -69,6 +69,13 @@ public class OrderWaitDBContext extends DBContext {
             stm_o.setBoolean(6, false);
             stm_o.executeUpdate();
 
+            String sql_getOrderID = "SELECT @@IDENTITY as orderId";
+            PreparedStatement stm_getCusID = connection.prepareStatement(sql_getOrderID);
+            rs = stm_getCusID.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("orderId");
+            }
+
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(OrderWaitDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,6 +91,7 @@ public class OrderWaitDBContext extends DBContext {
                 Logger.getLogger(OrderWaitDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return -1;
     }
 
     public ArrayList<OrderWait> getInformationOrderWait(int pageIndex, int pageSize, String rented, String key) {

@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Administrator;
+import model.Account;
 
 /**
  *
@@ -50,7 +50,7 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         AdminstratorDBContext db = new AdminstratorDBContext();
         
-        Administrator acc = db.getAccount(username, password);
+        Account acc = db.getAccount(username, password);
         if (acc == null) {
             request.getSession().setAttribute("account", null);
             request.setAttribute("isLogin", false);
@@ -58,8 +58,7 @@ public class LoginController extends HttpServlet {
         }else{
             request.getSession().setAttribute("account", acc);
             request.getSession().setMaxInactiveInterval(3000);
-//            request.getRequestDispatcher("Management/Home").forward(request, response);
-            response.sendRedirect("management/room");
+            response.sendRedirect("room");
         }
     }
 

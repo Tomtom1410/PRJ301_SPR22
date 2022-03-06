@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,7 +111,7 @@
                     <p class="descript2">Come to Your House, you will experience translation
                         High-class spa services, modern fitness center and recreational activities on the sea.
                     </p>
-                    <a style="color: #c9ec4d; font-weight: bold; font-size: 23px; text-decoration-line: revert;" href="Room">Details</a>
+                    <a style="color: #c9ec4d; font-weight: bold; font-size: 23px; text-decoration-line: revert;" href="room">Details</a>
                 </div>
 
                 <div class="col-md-7 row">

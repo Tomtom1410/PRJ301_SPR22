@@ -28,6 +28,11 @@ public class BookingDBContext extends DBContext {
     public void insertBooking(BookingDetail b) {
         try {
             connection.setAutoCommit(false);
+            if (b.getOrderWait().getOrderWaitID() == 0) {
+                OrderWaitDBContext odbc = new OrderWaitDBContext();
+                int orderID = odbc.insertOrder(b.getOrderWait());
+                b.getOrderWait().setOrderWaitID(orderID);
+            }
             for (Department d : b.getDepartments()) {
                 String sql = "INSERT INTO [Booking_Detail]\n"
                         + "           ([orderWaitID]\n"
