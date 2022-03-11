@@ -33,7 +33,7 @@ public class RoomDetailController extends HttpServlet {
         String name = request.getParameter("deptName");
 
         DepartmentDBContext ddb = new DepartmentDBContext();
-        Department d = ddb.getRoomByName(name).get(0);
+        Department d = ddb.getRoomByName(name, "rented").get(0);
         String url_image = d.getUrl().get(0);
         d.getUrl().remove(url_image);
 

@@ -44,10 +44,10 @@ public class AddNewOrder extends HttpServlet {
         ArrayList<Department> roomModel = ddb.getRoomModel();
         request.setAttribute("roomType", roomModel);
         if (deptName != null) {
-            ArrayList<Department> room = ddb.getRoomByName(deptName);
+            ArrayList<Department> room = ddb.getRoomByName(deptName, "0");
             request.setAttribute("rooms", room);
         } else {
-            ArrayList<Department> room = ddb.getRoomByName(roomModel.get(0).getDeptName());
+            ArrayList<Department> room = ddb.getRoomByName(roomModel.get(0).getDeptName(), "0");
             request.setAttribute("rooms", room);
         }
         request.setAttribute("tagmenu", "room");
@@ -104,7 +104,7 @@ public class AddNewOrder extends HttpServlet {
             request.setAttribute("deptName", d.getDeptName());
             ArrayList<Department> roomModel = ddb.getRoomModel();
             request.setAttribute("roomType", roomModel);
-            ArrayList<Department> room = ddb.getRoomByName(d.getDeptName());
+            ArrayList<Department> room = ddb.getRoomByName(d.getDeptName(), "wait");
             request.setAttribute("rooms", room);
             request.setAttribute("tagmenu", "room");
             request.getRequestDispatcher("../view/AdminDirector/AddNewOrder.jsp").forward(request, response);

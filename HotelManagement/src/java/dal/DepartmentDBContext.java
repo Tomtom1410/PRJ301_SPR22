@@ -64,7 +64,7 @@ public class DepartmentDBContext extends DBContext {
         return depts;
     }
 
-    public ArrayList<Department> getRoomByName(String name) {
+    public ArrayList<Department> getRoomByName(String name, String orderStatus) {
         ArrayList<Department> deptList = new ArrayList<>();
         try {
             String sql = "select deptID, deptName, [Status], price, Department.roomType,\n"
@@ -72,7 +72,11 @@ public class DepartmentDBContext extends DBContext {
                     + "from Department\n"
                     + "inner join RoomTypeAndUrl\n"
                     + "on Department.roomType = RoomTypeAndUrl.roomType\n"
-                    + "where deptName = ? and [Status] = 0\n";
+                    + "where deptName = ?\n";
+            if (orderStatus.equals("wait")) {
+                sql += " and [Status] = 0\n";
+            }
+                   
             stm = connection.prepareStatement(sql);
             stm.setString(1, name);
             rs = stm.executeQuery();

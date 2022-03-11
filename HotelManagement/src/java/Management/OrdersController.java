@@ -108,9 +108,8 @@ public class OrdersController extends HttpServlet {
         DepartmentDBContext ddb = new DepartmentDBContext();
 
         if (rented.equals("0")) {
-//            String roomName = request.getParameter("roomName");
             OrderWait order = odb.getOrderById(Integer.parseInt(orderID));
-            ArrayList<Department> room = ddb.getRoomByName(order.getDepartment().getDeptName());
+            ArrayList<Department> room = ddb.getRoomByName(order.getDepartment().getDeptName(), "wait");
             request.setAttribute("order", order);
             request.setAttribute("rooms", room);
 
@@ -120,7 +119,7 @@ public class OrdersController extends HttpServlet {
             request.setAttribute("booking", booking);
             ArrayList<Department> roomModel = ddb.getRoomModel();
             request.setAttribute("roomType", roomModel);
-            ArrayList<Department> rooms = ddb.getRoomByName(booking.getOrderWait().getDepartment().getDeptName());
+            ArrayList<Department> rooms = ddb.getRoomByName(booking.getOrderWait().getDepartment().getDeptName(), "rented");
             request.setAttribute("rooms", rooms);
             request.setAttribute("deptName", booking.getOrderWait().getDepartment().getDeptName());
         }

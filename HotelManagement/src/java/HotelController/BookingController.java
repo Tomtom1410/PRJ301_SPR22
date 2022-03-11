@@ -77,7 +77,7 @@ public class BookingController extends HttpServlet {
 
         if (o.getCheckIn().after(o.getCheckOut())) {
             DepartmentDBContext ddb = new DepartmentDBContext();
-            Department dt = ddb.getRoomByName(deptName).get(0);
+            Department dt = ddb.getRoomByName(deptName, "rented").get(0);
             String url_image = dt.getUrl().get(0);
             dt.getUrl().remove(url_image);
             request.setAttribute("order", o);
