@@ -177,7 +177,7 @@ public class BookingDBContext extends DBContext {
         try {
             String sql = "SELECT DISTINCT BookingID, OrderWait.orderWaitID, noOfRooms, Customer.CustomerID, \n"
                     + "		CustomerName, Customer.Email, Phone, [Address], Rented, CheckIn, CheckOut,\n"
-                    + "		deptID, deptName, Booking_Detail.cancel\n"
+                    + "		deptID, deptName, Booking_Detail.cancel, payment\n"
                     + "FROM Booking_Detail\n"
                     + "inner JOIN OrderWait ON OrderWait.orderWaitID = Booking_Detail.orderWaitID\n"
                     + "INNER JOIN Customer ON OrderWait.CustomerID = Customer.CustomerID\n"
@@ -210,6 +210,7 @@ public class BookingDBContext extends DBContext {
                     bookingDetail.setOrderWait(o);
                     bookingDetail.setCancel(rs.getBoolean("cancel"));
                     bookingDetail.setBookingID(rs.getInt("BookingID"));
+                    bookingDetail.setPayment(rs.getBoolean("payment"));
                 }
                 Department d = new Department();
                 d.setDeptID(rs.getInt("deptID"));
@@ -380,6 +381,7 @@ public class BookingDBContext extends DBContext {
             stm = connection.prepareStatement(sql4);
             stm.setInt(1, orderId);
             stm.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(BookingDBContext.class.getName()).log(Level.SEVERE, null, ex);
             try {
@@ -410,6 +412,39 @@ public class BookingDBContext extends DBContext {
             Logger.getLogger(BookingDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
+    }
+
+    public void checkOut(String orderID) {
+        try {
+            connection.setAutoCommit(false);
+            String sql = "UPDATE [dbo].[Booking_Detail]\n"
+                    + "   SET [payment] = 1\n"
+                    + " WHERE orderWaitID = ?";
+            PreparedStatement stm1 = connection.prepareStatement(sql);
+            stm1.setString(1, orderID);
+            stm1.executeUpdate();
+
+            String sql2 = "UPDATE [dbo].[Department]\n"
+                    + "   SET [Status] = 0\n"
+                    + " WHERE deptID in (select deptID from Booking_Detail where orderWaitID = ?)";
+            PreparedStatement stm2 = connection.prepareStatement(sql2);
+            stm2.setString(1, orderID);
+            stm2.executeUpdate();
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(BookingDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                Logger.getLogger(BookingDBContext.class.getName()).log(Level.SEVERE, null, e);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(BookingDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public static void main(String[] args) {

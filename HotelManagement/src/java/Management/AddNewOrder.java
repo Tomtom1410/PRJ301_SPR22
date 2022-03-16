@@ -44,10 +44,10 @@ public class AddNewOrder extends HttpServlet {
         ArrayList<Department> roomModel = ddb.getRoomModel();
         request.setAttribute("roomType", roomModel);
         if (deptName != null) {
-            ArrayList<Department> room = ddb.getRoomByName(deptName, "0");
+            ArrayList<Department> room = ddb.getRoomByName(deptName, "1");
             request.setAttribute("rooms", room);
         } else {
-            ArrayList<Department> room = ddb.getRoomByName(roomModel.get(0).getDeptName(), "0");
+            ArrayList<Department> room = ddb.getRoomByName(roomModel.get(0).getDeptName(), "1");
             request.setAttribute("rooms", room);
         }
         request.setAttribute("tagmenu", "room");

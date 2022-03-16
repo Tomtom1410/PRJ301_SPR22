@@ -62,7 +62,11 @@ public class BookingDetailsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String orderId = request.getParameter("orderId");
+        BookingDBContext bdb = new BookingDBContext();
+        bdb.checkOut(orderId);
+        request.setAttribute("booking", bdb.getBookingDetail(Integer.parseInt(orderId)));
+        request.getRequestDispatcher("../view/AdminDirector/BookingDetails.jsp").forward(request, response);
     }
 
     /**

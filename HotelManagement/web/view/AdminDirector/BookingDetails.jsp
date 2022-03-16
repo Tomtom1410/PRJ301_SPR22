@@ -81,20 +81,39 @@
                                 <span class="form-control" style="font-weight: bolder;">${invoice.totalPrice}$</span>
                             </div>
                         </div>
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <button type="button" onclick="location.href = 'bookinghistory'" class="btn btn-success center-block col-sm-10">Back</button>
+                        <c:if test="${!booking.payment}">
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <button type="button" onclick="location.href = 'bookinghistory'" class="btn btn-success center-block col-sm-10">Back</button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <form action="bookingdetails" method="GET">
+                                        <input type="hidden" name="orderId" value="${booking.orderWait.orderWaitID}">
+                                        <button type="submit" class="btn btn-danger center-block col-sm-10">Cancel</button>
+                                    </form>
+                                </div>
+                                <div class="col-sm-2">
+                                    <form action="bookingdetails" method="POST">
+                                        <input type="hidden" name="orderId" value="${booking.orderWait.orderWaitID}">
+                                        <button type="submit" class="btn btn-primary center-block col-sm-10">Payment</button>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="col-sm-2">
-                                <form action="bookingdetails">
-                                    <input type="hidden" name="orderId" value="${booking.orderWait.orderWaitID}">
-                                    <button type="submit" class="btn btn-danger center-block col-sm-10">Cancel</button>
-                                </form>
+                        </c:if>
+                        <c:if test="${booking.payment}">
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <span style="color: red; font-weight: bolder;">Bill has been paid</span>
+                                </div>
                             </div>
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-info center-block col-sm-10">Payment</button>
+                            <div class="col-sm-12">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <button type="button" onclick="location.href = 'bookinghistory'" class="btn btn-success center-block col-sm-10">Back</button>
+                                </div>
                             </div>
-                        </div>
+                        </c:if>
                     </c:if>
                     <c:if test="${booking.isCancel()}">
                         <div class="form-group">

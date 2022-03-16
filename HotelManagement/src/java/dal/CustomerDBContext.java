@@ -80,7 +80,7 @@ public class CustomerDBContext extends DBContext {
         try {
             String sql = "select * from Customer\n"
                     + "where CustomerName = ? AND Phone = ? \n"
-                    + "AND   Email = ?";
+                    + "AND Email = ?";
             stm = connection.prepareStatement(sql);
             stm.setString(1, c.getCustomerName());
             stm.setString(2, c.getPhone());

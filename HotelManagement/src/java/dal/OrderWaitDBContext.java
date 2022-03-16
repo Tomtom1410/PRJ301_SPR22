@@ -97,17 +97,21 @@ public class OrderWaitDBContext extends DBContext {
     public ArrayList<OrderWait> getInformationOrderWait(int pageIndex, int pageSize, String rented, String key) {
         ArrayList<OrderWait> orderWaits = new ArrayList<>();
         try {
-            String sql = "SELECT * \n"
-                    + " FROM  (SELECT ROW_NUMBER() OVER (ORDER BY OrderWaitID desc) as rownum,\n"
-                    + "			Customer.CustomerID, CustomerName, Phone, Email, [Address]	\n"
-                    + "			,orderWaitID, deptName, CheckIn, CheckOut, noOfRooms,Rented\n"
-                    + "		FROM OrderWait \n"
-                    + "		inner join Customer on Customer.CustomerID = OrderWait.CustomerID\n"
-                    + "         where cancel = 0 and Rented = " + rented + "\n";
+            String sql = "with o as (\n"
+                    + "	SELECT distinct Customer.CustomerID, CustomerName, Phone, Email, [Address]	\n"
+                    + "        , deptName, CheckIn, CheckOut, noOfRooms, Rented, orderWait.orderWaitID\n"
+                    + "FROM  OrderWait \n"
+                    + "inner join Customer on Customer.CustomerID = OrderWait.CustomerID\n"
+                    + "left join Booking_Detail on Booking_Detail.orderWaitID = OrderWait.orderWaitID\n"
+                    + "where payment is null and OrderWait.cancel = 0 and Rented = " + rented + "\n";
             if (key != null) {
                 sql += "        and CustomerName like '%" + key + "%' or phone like '%" + key + "%'\n";
             }
-            sql += ")  as O \n"
+            sql += ")\n"
+                    + "select * from (\n"
+                    + "	select ROW_NUMBER() OVER (ORDER BY o.OrderWaitID desc) as rownum, o.*\n"
+                    + "	from o \n"
+                    + ") as od \n"
                     + "WHERE  rownum >= (? - 1)*? + 1 AND rownum <= ? * ?";
 //            System.out.println(sql);
             stm = connection.prepareStatement(sql);
@@ -274,9 +278,9 @@ public class OrderWaitDBContext extends DBContext {
 
     public static void main(String[] args) {
         OrderWaitDBContext odb = new OrderWaitDBContext();
-//        for (OrderWait orderWait : odb.getInformationOrderWait(1, 10, "0", "096")) {
-//            System.out.println(orderWait.getCustomer().getCustomerName());
-//        }
-        System.out.println(odb.getOrderById(1).getCustomer().getCustomerName());
+        for (OrderWait orderWait : odb.getInformationOrderWait(1, 10, "0", null)) {
+            System.out.println(orderWait.getCustomer().getCustomerName());
+        }
+//        System.out.println(odb.getOrderById(1).getCustomer().getCustomerName());
     }
 }

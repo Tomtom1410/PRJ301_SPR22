@@ -12,6 +12,7 @@ public class BookingDetail {
     private OrderWait orderWait;
     private ArrayList<Department> departments = new ArrayList<>();
     private boolean cancel;
+    private boolean payment;
 
     public int getBookingID() {
         return bookingID;
@@ -44,5 +45,15 @@ public class BookingDetail {
     public void setCancel(boolean cancel) {
         this.cancel = cancel;
     }
+
+    public boolean isPayment() {
+        return payment;
+    }
+
+    public void setPayment(boolean payment) {
+        this.payment = payment;
+    }
+    
+    
 
 }

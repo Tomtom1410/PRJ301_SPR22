@@ -3,7 +3,7 @@
     Created on : Mar 2, 2022, 11:37:48 AM
     Author     : conmu
 --%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="Linkcss.jsp"></jsp:include>
     <!-- header logo: style can be found in header.less -->

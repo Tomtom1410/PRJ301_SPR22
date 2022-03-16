@@ -20,10 +20,7 @@ import model.Feedback;
  */
 public class FeedBackDBContext extends DBContext {
 
-    PreparedStatement stm;
-    ResultSet rs;
-
-    public void insertFeedBack(Feedback f) {
+    public boolean insertFeedBack(Feedback f) {
         try {
             connection.setAutoCommit(false);
             CustomerDBContext cdb = new CustomerDBContext();
@@ -48,26 +45,24 @@ public class FeedBackDBContext extends DBContext {
 
                 String sql_getCusID = "SELECT @@IDENTITY as customerID";
                 PreparedStatement stm_getCusID = connection.prepareStatement(sql_getCusID);
-                rs = stm_getCusID.executeQuery();
+                ResultSet rs = stm_getCusID.executeQuery();
                 if (rs.next()) {
                     c = new Customer();
-                    c.setCustomerID(rs.getInt("customerID"));
+                    c.setCustomerID(rs.getInt(1));
                 }
-            } else {
-                String sql = "INSERT INTO [Feedback]\n"
-                        + "           ([CustomerID]\n"
-                        + "           ,[FeedBack]\n"
-                        + "           ,[Date])\n"
-                        + "     VALUES\n"
-                        + "           (?\n"
-                        + "           ,?\n"
-                        + "           ,?)";
-                stm = connection.prepareStatement(sql);
-                stm.setInt(1, c.getCustomerID());
-                stm.setString(2, f.getFeedbackContent());
-                stm.setDate(3, f.getDate());
-                stm.executeUpdate();
             }
+            String sql = "INSERT INTO [Feedback]\n"
+                    + "           ([CustomerID]\n"
+                    + "           ,[FeedBack]\n"
+                    + "           ,[Date])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "     ,GETDATE())";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, c.getCustomerID());
+            stm.setString(2, f.getFeedbackContent());
+            stm.executeUpdate();
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(FeedBackDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,13 +71,15 @@ public class FeedBackDBContext extends DBContext {
             } catch (SQLException ex1) {
                 Logger.getLogger(FeedBackDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
+            return false;
         } finally {
             try {
                 connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(FeedBackDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex2) {
+                Logger.getLogger(FeedBackDBContext.class.getName()).log(Level.SEVERE, null, ex2);
             }
         }
+        return true;
     }
 
     public ArrayList<Feedback> getAllFeedback(String key, int pageIndex, int pageSize) {
@@ -100,12 +97,12 @@ public class FeedBackDBContext extends DBContext {
             }
             sql += ")  as f  \n"
                     + "WHERE  rownum >= (?-1)*?  + 1 AND rownum <=  ?*?";
-            stm = connection.prepareStatement(sql);
+            PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, pageIndex);
             stm.setInt(2, pageSize);
             stm.setInt(3, pageIndex);
             stm.setInt(4, pageSize);
-            rs = stm.executeQuery();
+            ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
                 Customer c = new Customer();
@@ -135,9 +132,9 @@ public class FeedBackDBContext extends DBContext {
                     + "	FROM Feedback  \n"
                     + "	inner join Customer on Customer.CustomerID = FeedBack.CustomerID\n"
                     + "	where feedID = ?\n";
-            stm = connection.prepareStatement(sql);
+            PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
-            rs = stm.executeQuery();
+            ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
                 Customer c = new Customer();
@@ -168,8 +165,8 @@ public class FeedBackDBContext extends DBContext {
             if (key != null && key.trim().length() != 0) {
                 sql += "and CustomerName like '%" + key + "%' or FeedBack like '%" + key + "%'\n";
             };
-            stm = connection.prepareStatement(sql);
-            rs = stm.executeQuery();
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
             }
@@ -182,6 +179,14 @@ public class FeedBackDBContext extends DBContext {
 
     public static void main(String[] args) {
         FeedBackDBContext fdb = new FeedBackDBContext();
+        Feedback f = new Feedback();
+        f.setFeedbackContent("ádhasdhsgdahda");
+        Customer c = new Customer();
+        c.setCustomerName("Tép");
+        c.setPhone("6532156323");
+        c.setEmail("tep@tep.com");
+        f.setCustomer(c);
+        fdb.insertFeedBack(f);
 //        for (Feedback feedback : fdb.getAllFeedback(null, 1, 10)) {
 //            System.out.println(feedback.getFeedID() + " " + feedback.getCustomer().getCustomerName());
 //        }

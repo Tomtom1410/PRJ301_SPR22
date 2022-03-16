@@ -73,7 +73,7 @@ public class DepartmentDBContext extends DBContext {
                     + "inner join RoomTypeAndUrl\n"
                     + "on Department.roomType = RoomTypeAndUrl.roomType\n"
                     + "where deptName = ?\n";
-            if (orderStatus.equals("wait")) {
+            if (orderStatus.equals("1")) {
                 sql += " and [Status] = 0\n";
             }
                    

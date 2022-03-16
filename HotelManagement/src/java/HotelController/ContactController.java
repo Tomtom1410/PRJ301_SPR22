@@ -35,7 +35,8 @@ public class ContactController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String tag = "contact";
-
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         request.setAttribute("tag", tag);
         request.getRequestDispatcher("view/Hotel/Contact.jsp").forward(request, response);
     }
