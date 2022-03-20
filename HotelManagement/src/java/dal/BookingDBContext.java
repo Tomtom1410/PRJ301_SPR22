@@ -131,7 +131,7 @@ public class BookingDBContext extends DBContext {
             }
 
             if (key != null && key.trim().length() != 0) {
-                sql += "        and CustomerName like '%" + key + "%' or phone like '%" + key + "%'\n";
+                sql += "        and CustomerName like N'%" + key + "%' or phone like '%" + key + "%'\n";
             }
 
             sql += ") as o\n"
@@ -242,7 +242,7 @@ public class BookingDBContext extends DBContext {
             }
 
             if (key != null && key.trim().length() != 0) {
-                sql += "        and CustomerName like '%" + key + "%' or phone like '%" + key + "%'\n";
+                sql += "        and CustomerName like N'%" + key + "%' or phone like '%" + key + "%'\n";
             }
             stm = connection.prepareStatement(sql);
             rs = stm.executeQuery();

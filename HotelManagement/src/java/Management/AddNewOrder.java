@@ -46,6 +46,7 @@ public class AddNewOrder extends HttpServlet {
         if (deptName != null) {
             ArrayList<Department> room = ddb.getRoomByName(deptName, "1");
             request.setAttribute("rooms", room);
+            request.setAttribute("deptName", deptName);
         } else {
             ArrayList<Department> room = ddb.getRoomByName(roomModel.get(0).getDeptName(), "1");
             request.setAttribute("rooms", room);

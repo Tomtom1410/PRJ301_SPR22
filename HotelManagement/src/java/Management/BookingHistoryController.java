@@ -68,6 +68,7 @@ public class BookingHistoryController extends HttpServlet {
                 request.setAttribute("totalPage", totalPage);
                 String url = "bookinghistory?status=" + cancel + "&page=";
                 request.setAttribute("url", url);
+                request.setAttribute("status", cancel);
             } else {
                 ArrayList<BookingDetail> allBookingDetails = bdb.getAllBookingDetails(pageIndex, pagesize, "all", null);
                 request.setAttribute("bookings", allBookingDetails);

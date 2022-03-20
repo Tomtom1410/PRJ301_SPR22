@@ -105,7 +105,7 @@ public class OrderWaitDBContext extends DBContext {
                     + "left join Booking_Detail on Booking_Detail.orderWaitID = OrderWait.orderWaitID\n"
                     + "where payment is null and OrderWait.cancel = 0 and Rented = " + rented + "\n";
             if (key != null) {
-                sql += "        and CustomerName like '%" + key + "%' or phone like '%" + key + "%'\n";
+                sql += "        and CustomerName like N'%" + key + "%' or phone like '%" + key + "%'\n";
             }
             sql += ")\n"
                     + "select * from (\n"
@@ -113,7 +113,7 @@ public class OrderWaitDBContext extends DBContext {
                     + "	from o \n"
                     + ") as od \n"
                     + "WHERE  rownum >= (? - 1)*? + 1 AND rownum <= ? * ?";
-//            System.out.println(sql);
+            System.out.println(sql);
             stm = connection.prepareStatement(sql);
             stm.setInt(1, pageIndex);
             stm.setInt(2, pageSize);
@@ -209,13 +209,18 @@ public class OrderWaitDBContext extends DBContext {
 
     public int totalRow(String rented, String key) {
         try {
-            String sql = "SELECT Count(*)"
-                    + "		FROM OrderWait \n"
-                    + "		inner join Customer on Customer.CustomerID = OrderWait.CustomerID\n"
-                    + "         where Rented = ?";
+            String sql = "with o as (\n"
+                    + "	SELECT distinct Customer.CustomerID, CustomerName, Phone, Email, [Address]	\n"
+                    + "        , deptName, CheckIn, CheckOut, noOfRooms, Rented, orderWait.orderWaitID\n"
+                    + "FROM  OrderWait \n"
+                    + "inner join Customer on Customer.CustomerID = OrderWait.CustomerID\n"
+                    + "left join Booking_Detail on Booking_Detail.orderWaitID = OrderWait.orderWaitID\n"
+                    + "where payment is null and OrderWait.cancel = 0 and Rented = ?\n";
             if (key != null) {
-                sql += "        and CustomerName like '%" + key + "%' or phone like '%" + key + "%'\n";
+                sql += "        and CustomerName like N'%" + key + "%' or phone like '%" + key + "%'\n";
             }
+            sql += ")\n"
+                    + "select count(*) as totalRow from o";
             stm = connection.prepareStatement(sql);
             stm.setString(1, rented);
             rs = stm.executeQuery();
@@ -277,10 +282,11 @@ public class OrderWaitDBContext extends DBContext {
     }
 
     public static void main(String[] args) {
-        OrderWaitDBContext odb = new OrderWaitDBContext();
-        for (OrderWait orderWait : odb.getInformationOrderWait(1, 10, "0", null)) {
-            System.out.println(orderWait.getCustomer().getCustomerName());
-        }
+//        OrderWaitDBContext odb = new OrderWaitDBContext();
+//        for (OrderWait orderWait : odb.getInformationOrderWait(1, 10, "0", "trần duy đăng")) {
+//            System.out.println(orderWait.getCustomer().getCustomerName());
+//        }
 //        System.out.println(odb.getOrderById(1).getCustomer().getCustomerName());
+//        System.out.println(odb.totalRow("1", null));
     }
 }

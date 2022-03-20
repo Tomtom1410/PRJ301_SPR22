@@ -90,7 +90,7 @@
                                             <td>${r.status eq true ? "Rented":"Empty"}</td>
                                             <td>
                                                 <c:if test="${r.status}">
-                                                    <form action="bookingdetails" method="POST">
+                                                    <form action="#" method="POST">
                                                         <input type="hidden" value="${r.deptID}" name="roomid">
                                                         <button type="submit" class="btn btn-danger" style="width: 90px;">Check-out</button>
                                                     </form>
