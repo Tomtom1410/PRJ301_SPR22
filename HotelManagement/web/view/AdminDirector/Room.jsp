@@ -79,7 +79,7 @@
                                         <th>Room Name</th>
                                         <th>Type</th>
                                         <th>Status</th>
-                                        <th>Active</th>
+                                        <th>Action</th>
                                         <!--<th>Reason</th>-->
                                     </tr>
                                     <c:forEach items="${requestScope.rooms}" var="r">
